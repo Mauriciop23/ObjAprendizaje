@@ -1868,27 +1868,27 @@ pre code {
 }
 
 .form-control::-webkit-input-placeholder {
-  color: var(--goold);
+  color: #020260;
   opacity: 1;
 }
 
 .form-control::-moz-placeholder {
-  color: var(--goold);
+  color: #020260;
   opacity: 1;
 }
 
 .form-control:-ms-input-placeholder {
-  color: var(--goold);
+  color: #020260;
   opacity: 1;
 }
 
 .form-control::-ms-input-placeholder {
-  color: var(--goold);
+  color: #020260;
   opacity: 1;
 }
 
 .form-control::placeholder {
-  color: var(--goold);
+  color: #020260;
   opacity: 1;
 }
 
@@ -1946,7 +1946,7 @@ select.form-control:focus::-ms-value {
   margin-bottom: 0;
   font-size: 1rem;
   line-height: 1.5;
-  color: var(--goold);
+  color: #020260;
   background-color: transparent;
   border: solid transparent;
   border-width: 1px 0;
