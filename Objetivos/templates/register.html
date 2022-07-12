@@ -40,35 +40,93 @@
                                 <h1 class="h4 text-gray-900 mb-4">Crea una cuenta</h1>
                             </div>
                             <form class="user">
+                                {% csrf_token %}
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                        <input type="text" class="form-control form-control-user" id="registro_Nombre"
                                             placeholder="Nombre">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                        <input type="text" class="form-control form-control-user" id="registro_Apellido"
                                             placeholder="Apellidos">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Correo">
+                                <div class="form-group row mb-1">
+                                    <div class="col-sm-6 mb-3 mb-sm-0l">
+                                        <select class="form-control rounded-pill" id="registro_Estado" style="height: 50px;">
+                                            <option selected value="0">Estado de la republica...</option>
+                                            <option value="Aguascalientes"> Aguascalientes </option>
+                                            <option value="Baja California"> Baja California </option>
+                                            <option value="Baja California"> Sur Baja California Sur </option>
+                                            <option value="Campeche"> Campeche </option>
+                                            <option value="Chiapas"> Chiapas </option>
+                                            <option value="Chihuahua"> Chihuahua </option>
+                                            <option value="Ciudad de México"> Ciudad de México </option>
+                                            <option value="Coahuila"> Coahuila </option>
+                                            <option value="Colima"> Colima </option>
+                                            <option value="Durango"> Durango </option>
+                                            <option value="Estado de México"> Estado de México</option> 
+                                            <option value="Guanajuato"> Guanajuato </option>
+                                            <option value="Guerrero"> Guerrero </option>
+                                            <option value="Hidalgo"> Hidalgo </option>
+                                            <option value="Jalisco"> Jalisco </option>
+                                            <option value="Michoacán"> Michoacán </option>
+                                            <option value="Morelos"> Morelos  </option>
+                                            <option value="Nayarit"> Nayarit </option> 
+                                            <option value="Nuevo León">  Nuevo León </option> 
+                                            <option value="Oaxaca">  Oaxaca </option>
+                                            <option value="Puebla"> Puebla </option>
+                                            <option value="Querétaro"> Querétaro</option> 
+                                            <option value="Quintana"> Roo Quintana Roo </option>
+                                            <option value="San Luis"> Potosí San Luis Potosí </option>
+                                            <option value="Sinaloa"> Sinaloa </option>
+                                            <option value="Sonora"> Sonora  </option>
+                                            <option value="Tabasco"> Tabasco</option>  
+                                            <option value="Tamaulipas">  Tamaulipas </option>
+                                            <option value="Tlaxcala">  Tlaxcala  </option>
+                                            <option value="Veracruz"> Veracruz  </option>
+                                            <option value="Yucatán"> Yucatán </option>
+                                            <option value="Zacatecas">  Zacatecas</option>
+                                        </select>
+                                      </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" id="registro_Institucion"
+                                            placeholder="Nombre de la institución">
+                                    </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Contraseña">
+                                        <input type="text" class="form-control form-control-user" id="registro_Carrera"
+                                            placeholder="Carrera">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repetir Contraseña">
+                                        <select class="form-control rounded-pill" id="registro_Semestre" style="height: 50px;">
+                                            <option selected value="0">Semestre</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                        </select> 
                                     </div>
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
-                                    Registrar cuenta
-                                </a>
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" id="registro_Correo"
+                                        placeholder="Correo">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-user" id="registro_Contraseña"
+                                    placeholder="Contraseña">
+                                </div>
+                                <input type="text" class="btn btn-primary btn-user btn-block" type="submit" value="Registrar cuenta">
                             </form>
-                            <hr>
                         </div>
                     </div>
                 </div>
