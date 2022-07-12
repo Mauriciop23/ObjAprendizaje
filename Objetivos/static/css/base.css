@@ -1,3 +1,13 @@
 .sidebar-brand-icon .logo{
     width: 10px;
 }
+
+.rounded-5{
+    border-radius: 150px !important;
+}
+
+.bg-login-image2 {
+    background: url("../img/TecLogo.png");
+    background-position: center;
+    background-size: cover;
+  }
