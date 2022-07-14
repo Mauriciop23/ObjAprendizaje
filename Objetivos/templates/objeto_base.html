@@ -3,14 +3,9 @@
 <html lang="es">
 
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>OBJETIVOS DASHBOARD</title>
+    {% block metadata %}
+    {%endblock%}
+    <title>{% block title %}{%endblock%}</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
@@ -380,53 +375,8 @@
 
                 
                 <div class="container-fluid"> <!-- Begin Page Content -->
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Objetos de Aprendizaje</h1>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-                        <!-- INICIO FOR-->
-                        <div class="col-xxl-4 col-xl-6 col-md-6 mb-4"> <!-- Begin Card -->
-                            <div class="card shadow h-100 py-2">
-                                <img src="{% static 'img/Card_Image.png' %}" class="card-img-top p-4 rounded-5" style="border-radius: 60px;" alt="...">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="h2 font-weight-bold text-primary mb-1 text-center">
-                                                #Nombre Objeto#</div>
-                                            <div class="row my-3">
-                                                <div class="col">
-                                                    <div class="d-flex align-items-center">
-                                                        <img class="rounded-circle" src="{% static 'img/image5V2.png' %}" alt="..."> <!-- Profile Photo -->
-
-                                                        <div class="ml-3">
-                                                            <h6 class="h6 mb-0 font-weight-bold text-gray-800">#Autor#</h6>
-                                                            <p class="text-xs mb-0 font-weight-bold text-gray-800">#FECHA#</p>
-                                                        </div>
-                                                    </div>
-                                    
-                                                </div>
-                                                <div class="col text-center">
-                                                    <h6 class="h6 mb-0 font-weight-bold text-gray-800">Carrera</h6>
-                                                    <p class="text-xs mb-0 font-weight-bold text-gray-800">#CARRERA#</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2 text-center">
-                                            <button class="btn btn-secondary text-uppercase" type="button">Ver más detalles</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!-- End Card -->
-                        <!-- FIN FOR-->
-                    </div>
-                </div> <!-- End Page Content -->
+                    {%block objeto_contenido%}
+                    {%endblock%}
             </div>
             <!-- End of Main Content -->
 

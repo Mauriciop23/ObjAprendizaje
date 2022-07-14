@@ -1,0 +1,182 @@
+{% extends "dashboardBase.html" %}
+{% load static %}
+
+{% block Dashboard_General%}
+                    <!-- Page Heading -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-8 d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-800">Información General</h1>
+                            </div>
+                            <div class="col-12 col-md-4 px-0">
+                                <button type="button" class="btn btn-info w-100" data-toggle="modal" data-target="#nuevoobjetoModal">
+                                    <i class="fas fa-fw fa-plus"></i>
+                                    Nuevo Objeto
+                                </button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Cantidad de Descargas</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                         <!-- Pie Chart -->
+                         <div class="col-xl-6 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Calificación</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="myPieChart"></canvas>
+                                    </div>
+                                    <div class="mt-4 text-center small" style="color: var(--dark-blue);">
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-primary"></i> Buena
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-success"></i> Mala
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle text-info"></i> Neutral
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-bar">
+                                        <canvas id="myBarChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bar Chart -->
+                        
+                       
+                    </div>
+
+                <!-- Nuevo Objeto Modal -->
+                <div class="modal fade" id="nuevoobjetoModal" tabindex="-1" role="dialog" aria-labelledby="nuevoobjetoModal"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-primary" id="nuevoobjetoModal">Nuevo Objeto de Aprendizaje</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <form>
+                                {% csrf_token %}
+                                <div class="modal-body text-gray-800">
+                                    
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="nvobj_Nombre">Nombre</label>
+                                                <input type="text" class="form-control" id="nvobj_Nombre" required>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="nvobj_Archivo">Archivo</label>
+                                                <input type="file" class="form-control-file rounded h-5" id="nvobj_Archivo" style="border: 1px solid #d1d3e2;">
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="nvobj_Descrip">Descripción</label>
+                                                <textarea class="form-control" id="nvobj_Descrip" rows="3" required></textarea>
+                                              </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="nvobj_Carrera">Carrera</label>
+                                                    <select class="form-control" id="nvobj_Carrera" required>
+                                                        <option value="CONTADOR PÚBLICO" selected>CONTADOR PÚBLICO</option>
+                                                        <option value="LIC. EN ADMINISTRACIÓN">LIC. EN ADMINISTRACIÓN</option>
+                                                        <option value="ING. EN GESTIÓN EMPRESARIAL">ING. EN GESTIÓN EMPRESARIAL</option>
+                                                        <option value="ING. INDUSTRIAL">ING. INDUSTRIAL</option>
+                                                        <option value="ING. BIOQUÍMICA">ING. BIOQUÍMICA</option>
+                                                        <option value="ING. ELÉCTRICA">ING. ELÉCTRICA</option>
+                                                        <option value="ING. ELECTRÓNICA">ING. ELECTRÓNICA</option>
+                                                        <option value="ING. MECÁNICA">ING. MECÁNICA</option>
+                                                        <option value="ING. MECATRÓNICA">ING. MECATRÓNICA</option>
+                                                        <option value="ING. EN MATERIALES">ING. EN MATERIALES</option>
+                                                        <option value="ING. EN SISTEMAS COMPUTACIONALES">ING. EN SISTEMAS COMPUTACIONALES</option>
+                                                        <option value="ING. EN TECNOLOGÍAS DE LA INFORMACIÓN Y COMUNICACIÓN">ING. EN TECNOLOGÍAS DE LA INFORMACIÓN Y COMUNICACIÓN</option>
+                                                    </select>
+                                            </div>
+                                        </div>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-danger" type="button" data-dismiss="modal">
+                                        <i class="fas fa-ban "></i>
+                                        Cancelar
+                                    </button>
+                                    <button class="btn btn-success" type="button" data-dismiss="modal" type="submit">
+                                        <i class="fas fa-plus "></i>
+                                        Agregar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+{%endblock%}

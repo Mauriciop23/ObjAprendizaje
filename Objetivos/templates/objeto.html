@@ -1,0 +1,96 @@
+{% extends "objeto_base.html" %}
+{% load static %}
+
+        {% block metadata %}
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="description" content="">
+            <meta name="author" content="">
+        {%endblock%}
+
+{% block title %}#NOMBRE# {%endblock%}
+
+{%block objeto_contenido%}
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">#Nombre objeto#</h1>
+            </div>
+<div class="card">
+    <div class="card-body">
+        <div class="container m-0 p-0 text-gray-900">
+            <!-- Content Row -->
+            <div class="row">
+                <div class="col-8">
+                    <label><strong>Descipción</strong></label>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip </p>
+                    <hr>
+                    <div class="d-flex flex-row justify-content-between">
+                        <div>
+                            <label><strong>Autor</strong></label>
+                            <p>Dra. María Yaneth Vega Flores</p>
+                        </div>
+                        <div>
+                            <label><strong>Fecha</strong></label>
+                            <p>13/07/2022</p>
+                        </div>
+                        <div>
+                            <label><strong>Materia</strong></label>
+                            <p>Fundamentos de Ingenieria en Software</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex flex-row justify-content-around">
+                        <div>
+                            <label><strong>Calificación Actual</strong></label>
+                            <p>9.5/10</p>
+                        </div>
+                        <div>
+                            <label><strong>Total de descargas</strong></label>
+                            <p>23</p>
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="col-4">
+                    <div class="d-flex justify-content-center p-0 m-0 h-100">
+                        <button type="submit" class="align-self-center btn btn-primary btn-lg w-100">Descargar</button>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col-12">
+                    <label><strong>Comentarios</strong></label>
+                </div>
+                <div class="col-12">
+                    <!-- INICIO FOR -->
+                    <div class="card my-3">
+                        <div class="card-body px-5">
+                            <div class="d-flex flex-row justify-content-between">
+                                <div>
+                                    <label class="row m-0 p-0"><strong>Dra. María Yaneth Vega Flores</strong></label>
+                                    <span class="row m-0 p-0">13/07/2022</span>
+                                </div>
+                                <div>
+                                    <span>Calificación: <strong>9.5</strong></span>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip  </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FIN FOR -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+            
+        </div> <!-- End Page Content -->
+{%endblock%}
