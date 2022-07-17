@@ -40,15 +40,12 @@
                                     <form class="user" method="post">
                                         {% csrf_token %}
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user"
-                                                id="Login_user" aria-describedby="emailHelp"
-                                                placeholder="Usuario">
+                                            <input class="form-control form-control-user" type="text" name="username" id="Login_User" placeholder="Usuario">                                                    
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="Login_password" placeholder="Contraseña">
+                                            <input class="form-control form-control-user" type="password" name="password" id="Login_Pass" placeholder="Contraseña">
                                         </div>
-                                        <input type="text" class="btn btn-primary btn-user btn-block" type="submit" value="Iniciar sesión">
+                                        <button class="btn btn-primary btn-user btn-block" type="submit"> Iniciar sesión </button>
                                     </form>
                                     <hr>
                                     <a href="index.html" class="btn btn-primary btn-user btn-block rounded-pill">

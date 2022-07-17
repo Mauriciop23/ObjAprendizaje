@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from Objetivos.models import objeto
+from django.contrib.auth import authenticate, login, logout
+
 
 def home(request):
     return render(request, 'index.html')
@@ -6,6 +11,7 @@ def home(request):
 def registro(request):
     return render(request, 'register.html')
 
+@login_required
 def dashboardGeneral(request):
     return render(request, 'dashboard_general.html')
 
