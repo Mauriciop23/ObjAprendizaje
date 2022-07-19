@@ -22,17 +22,14 @@ def dashboardGeneral(request):
         return HttpResponseRedirect("/home/")
     else:    
         context = {
-            'nombre_usuario': request.user.nombres
+            'nombre_usuario': request.user.nombres,
+            'activo_general': "active"
         }
         if request.method == "POST":
             if "addobjeto" in request.POST:
                 objeto = request.POST.copy()
                 objeto['estatus']='activo'
-<<<<<<< HEAD
                 form = ObjetoForm(objeto, request.FILES)
-=======
-                form = ObjetoForm(objeto)
->>>>>>> 4cfeee485aedd36d23a9b134e317c0c654a0e8e5
                 if form.is_valid():
                     form.save()
                     return HttpResponseRedirect('/dashboard/')
@@ -41,7 +38,11 @@ def dashboardGeneral(request):
         return render(request, 'dashboard_general.html', context)
 
 def dashboardContenido(request):
-    return render(request, 'dashboard_contenido.html')
+    context = {
+            'nombre_usuario': request.user.nombres,
+            'activo_contenido': "active"
+        }
+    return render(request, 'dashboard_contenido.html', context)
 
 def objeto(request):
     return render(request, 'objeto.html')

@@ -52,22 +52,22 @@
             </div>
 
             <!-- Nav Item - Materias -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#" aria-expanded="true">
+            <li class="nav-item {{ activo_general }}">
+                <a class="nav-link" href="{% url 'dashboard' %}" aria-expanded="true">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>General</span>
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link " href="#" aria-expanded="true">
+            <li class="nav-item {{ activo_contenido }}">
+                <a class="nav-link " href="{% url 'dashboardContenido' %}" aria-expanded="true">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Mi contenido</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link " href="#" aria-expanded="true">
+                <a class="nav-link " href="{% url 'home' %}" aria-expanded="true">
                     <i class="fas fa-graduation-cap"></i>
                     <span>Repositorio</span>
                 </a>
