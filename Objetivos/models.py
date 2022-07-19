@@ -1,9 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
+import datetime
+
+def objeto_directory_path(instance, filename):
+    extension = filename.rsplit('.', 1)[1]
+    return f'objetos/{str(datetime.datetime.now())}{instance.nombre}.{extension}'
 
 class objeto(models.Model):
     idobjeto = models.AutoField(primary_key=True)
-    archivo = models.FileField(upload_to='objetos/', max_length=150, blank=True, null=True)
+    archivo = models.FileField(upload_to=objeto_directory_path, max_length=150, blank=True, null=True)
     nombre = models.CharField(max_length=45)
     descripcion = models.CharField(max_length=45)
     estatus = models.CharField(max_length=45)

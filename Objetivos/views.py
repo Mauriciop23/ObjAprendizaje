@@ -28,7 +28,7 @@ def dashboardGeneral(request):
             if "addobjeto" in request.POST:
                 objeto = request.POST.copy()
                 objeto['estatus']='activo'
-                form = ObjetoForm(objeto)
+                form = ObjetoForm(objeto, request.FILES)
                 if form.is_valid():
                     form.save()
                     return HttpResponseRedirect('/dashboard/')
