@@ -140,11 +140,13 @@
             </div>
 
             <!-- Nav Item - Profesores -->
+            {% if profesor %}
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'dashboard' %}">
                     <i class="fas fa-fw fa-graduation-cap"></i>
                     <span>Profesores</span></a>
             </li>
+            {% endif %}
 
             <!-- Nav Item - Nuevos -->
             <li class="nav-item">

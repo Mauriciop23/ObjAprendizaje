@@ -1,7 +1,7 @@
 from django import forms
-from Objetivos.models import objeto
+from Objetivos.models import Objeto
 
 class ObjetoForm(forms.ModelForm):
     class Meta:
-        model = objeto
+        model = Objeto
         exclude = ('idobjeto',)

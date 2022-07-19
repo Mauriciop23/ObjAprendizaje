@@ -1,20 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
-import datetime
+import random
 
 def objeto_directory_path(instance, filename):
+    _str = '1234567890'
+    numero = str(''.join(random.choice(_str) for i in range(5))) 
     extension = filename.rsplit('.', 1)[1]
-    return f'objetos/{str(datetime.datetime.now())}{instance.nombre}.{extension}'
+    return f'objetos/{instance.idobjeto}_{numero}{instance.nombre}.{extension}'
 
-class objeto(models.Model):
+class Objeto(models.Model):
     idobjeto = models.AutoField(primary_key=True)
     archivo = models.FileField(upload_to=objeto_directory_path, max_length=150, blank=True, null=True)
     nombre = models.CharField(max_length=45)
-    descripcion = models.CharField(max_length=45)
+    descripcion = models.CharField(max_length=45, blank=True, null=True)
+    autor_principal = models.CharField(max_length=45, blank=True, null=True)
     estatus = models.CharField(max_length=45)
     fecha = models.DateField(blank=True, null=True)
     calificacionfinal = models.FloatField(blank=True, null=True)
-    precio = models.FloatField(blank=True, null=True) 
     descargas = models.IntegerField(blank=True, null=True) 
      
     def __str__(self):
@@ -24,7 +26,7 @@ class objeto(models.Model):
         managed = True
         db_table = 'objeto'
 
-class area(models.Model):
+class Area(models.Model):
     idarea = models.AutoField(primary_key=True)
     idobjeto = models.ForeignKey('objeto', models.DO_NOTHING, db_column='idobjeto')
     nombre = models.CharField(max_length=45)
@@ -36,7 +38,7 @@ class area(models.Model):
         managed = True
         db_table = 'area'      
 
-class autor(models.Model):
+class Autor(models.Model):
     idautor = models.AutoField(primary_key=True)
     idobjeto = models.ForeignKey('objeto', models.DO_NOTHING, db_column='idobjeto')
     username = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='username')
@@ -48,7 +50,7 @@ class autor(models.Model):
         managed = True
         db_table = 'autor'           
 
-class comentario(models.Model):
+class Comentario(models.Model):
     idcomentario = models.AutoField(primary_key=True)
     idobjeto = models.ForeignKey('objeto', models.DO_NOTHING, db_column='idobjeto')
     comentario = models.CharField(max_length=45)
@@ -61,7 +63,7 @@ class comentario(models.Model):
         managed = True
         db_table = 'comentario'    
 
-class calificacion(models.Model):
+class Calificacion(models.Model):
     idcalificacion = models.AutoField(primary_key=True)
     idobjeto = models.ForeignKey('objeto', models.DO_NOTHING, db_column='idobjeto')
     calificacion = models.FloatField(blank=True, null=True)
