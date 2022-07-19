@@ -8,7 +8,11 @@ def objeto_directory_path(instance, filename):
 
 class objeto(models.Model):
     idobjeto = models.AutoField(primary_key=True)
+<<<<<<< HEAD
     archivo = models.FileField(upload_to=objeto_directory_path, max_length=150, blank=True, null=True)
+=======
+    archivo = models.FileField(upload_to='objetos/', max_length=150, blank=True, null=True)
+>>>>>>> 4cfeee485aedd36d23a9b134e317c0c654a0e8e5
     nombre = models.CharField(max_length=45)
     descripcion = models.CharField(max_length=45)
     estatus = models.CharField(max_length=45)
