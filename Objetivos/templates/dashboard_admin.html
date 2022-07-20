@@ -1,9 +1,6 @@
 {% extends "dashboardBase.html" %}
 {% load static %}
 
-{% block links %}
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
-{%endblock%}
 
 {% block Dashboard_General%}
 
@@ -11,12 +8,12 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12 col-md-8 d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h3 mb-0 text-gray-800">Información General</h1>
+                                <h1 class="h3 mb-0 text-gray-800">Dashboard Administrativo</h1>
                             </div>
                             <div class="col-12 col-md-4 px-0">
                                 <button type="button" class="btn btn-info w-100" data-toggle="modal" data-target="#nuevoobjetoModal">
                                     <i class="fas fa-fw fa-plus"></i>
-                                    Nuevo Objeto
+                                    Nuevo Profesor
                                 </button>
                             </div>
                             
@@ -122,13 +119,13 @@
                        
                     </div>
 
-                <!-- Nuevo Objeto Modal -->
+                <!-- Nuevo Profesor Modal -->
                 <div class="modal fade" id="nuevoobjetoModal" tabindex="-1" role="dialog" aria-labelledby="nuevoobjetoModal"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title text-primary" id="nuevoobjetoModal">Nuevo Objeto de Aprendizaje</h5>
+                                <h5 class="modal-title text-primary" id="nuevoobjetoModal">Registrar Nuevo Profesor</h5>
                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
@@ -138,30 +135,44 @@
                                 <div class="modal-body text-gray-800">
                                     
                                         <div class="form-row">
-                                            <div class="form-group col-md-12">
-                                                <label for="nvobj_Nombre">Nombre</label>
-                                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                            <div class="form-group col-md-6">
+                                                <label for="nvprof_Nombre">Nombre</label>
+                                                <input type="text" class="form-control" id="nvprof_Nombre" name="nvprof_Nombre" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="nvprof_Apellidos">Apellidos</label>
+                                                <input type="text" class="form-control" id="nvprof_Apellidos" name="nvprof_Apellidos" required>
                                             </div>
                                             <div class="form-group col-md-12">
-                                                <label for="nvobj_Archivo">Archivo</label>
-                                                <input type="file" class="form-control-file rounded h-5" id="archivo" name="archivo" style="border: 1px solid #d1d3e2;">
+                                                <label for="nvprof_Correo">Correo</label>
+                                                <input type="email" class="form-control" id="nvprof_Correo" name="nvprof_Correo" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="nvprof_Telefono">Teléfono</label>
+                                                <input type="number" class="form-control" id="nvprof_Telefono" name="nvprof_Telefono" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="nvprof_RFC">RFC</label>
+                                                <input type="text" class="form-control" id="nvprof_RFC" name="nvprof_RFC" required>
                                             </div>
                                             <div class="form-group col-md-12">
-                                                <label for="nvobj_Descrip">Descripción</label>
-                                                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
-                                              </div>
+                                                <label for="nvprof_Institucion">Institución</label>
+                                                <input type="text" class="form-control" id="nvprof_Institucion" name="nvprof_Institucion" required>
+                                            </div>
                                             <div class="form-group col-md-12">
-                                                <label for="nvobj_Carrera">Carrera</label>
-                                                <select name="multi-area" id="multi-area" multiple="multiple">
-                                                    <option value="Area 1">Area 1</option>
-                                                    <option value="Area 2">Area 2</option>
-                                                    <option value="Area 3">Area 3</option>
-                                                    <option value="Area 4">Area 4</option>
+                                                <label for="nvprof_Departamento">Departamento</label>
+                                                <select class="form-control" id="nvprof_Departamento">
+                                                  <option value="Departamento 1">Departamento 1</option>
+                                                  <option value="Departamento 2">Departamento 2</option>
+                                                  <option value="Departamento 3">Departamento 3</option>
+                                                  <option value="Departamento 4">Departamento 4</option>
+                                                  <option value="Departamento 5">Departamento 5</option>
                                                 </select>
                                             </div>
+                                            <hr>
                                             <div class="form-group col-md-12">
-                                                <label for="nvobj_Nombre">Coautores</label>
-                                                <input type="text" class="form-control" id="nvobj_Correo" name="nvobj_Correo" placeholder="Ejemplo Coautor1, Ejemplo Coautor2, Ejemplo Coautor3">
+                                                <label for="nvprof_Contrseña">Contraseña</label>
+                                                <input type="text" class="form-control" id="nvprof_Contrseña" name="nvprof_Contrseña" required>
                                             </div>
                                         </div>
                                     
@@ -182,14 +193,4 @@
                 </div>
                 
         
-{%endblock%}
-
-{% block scripts %}
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $('#multi-area').selectpicker();
-    })
-    
-</script>
 {%endblock%}

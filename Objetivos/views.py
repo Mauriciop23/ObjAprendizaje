@@ -114,5 +114,8 @@ def dashboardContenido(request):
         }
     return render(request, 'dashboard_contenido.html', context)
 
+def dashboardAdmin(request):
+    return render(request, 'dashboard_admin.html')
+
 def objeto(request):
     return render(request, 'objeto.html')

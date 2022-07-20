@@ -13,6 +13,7 @@ urlpatterns = [
     path('', LoginView.as_view(template_name='login.html'), name='login'), 
     path('registro/', Objetivos.views.registro, name="registro"),
     path('dashboard/', Objetivos.views.dashboardGeneral, name="dashboard"),
+    path('dashboard_admin/', Objetivos.views.dashboardAdmin, name="dashboardAdmin"),
     path('dashboard/mi_contenido', Objetivos.views.dashboardContenido, name="dashboardContenido"),
     path('objeto/', Objetivos.views.objeto, name="objeto"),
     path("accounts/", include("django.contrib.auth.urls")),

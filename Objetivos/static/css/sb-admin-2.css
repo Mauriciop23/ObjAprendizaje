@@ -1868,28 +1868,28 @@ pre code {
 }
 
 .form-control::-webkit-input-placeholder {
-  color: #020260;
-  opacity: 1;
+  color: grey;
+  opacity: 0.5;
 }
 
 .form-control::-moz-placeholder {
-  color: #020260;
-  opacity: 1;
+  color: grey;
+  opacity: 0.5;
 }
 
 .form-control:-ms-input-placeholder {
-  color: #020260;
-  opacity: 1;
+  color: grey;
+  opacity: 0.5;
 }
 
 .form-control::-ms-input-placeholder {
-  color: #020260;
-  opacity: 1;
+  color: grey;
+  opacity: 0.5;
 }
 
 .form-control::placeholder {
-  color: #020260;
-  opacity: 1;
+  color: grey;
+  opacity: 0.5;
 }
 
 .form-control:disabled, .form-control[readonly] {
