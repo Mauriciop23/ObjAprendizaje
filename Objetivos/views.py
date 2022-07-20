@@ -5,6 +5,7 @@ from Objetivos.models import Objeto, Usuario
 from django.http.response import HttpResponse, HttpResponseRedirect
 from Objetivos.forms import ObjetoForm
 import datetime
+from django.contrib import messages
 
 @login_required
 def home(request):
@@ -18,6 +19,65 @@ def home(request):
     return render(request, 'index.html', context)
 
 def registro(request):
+    if request.method == "POST" and "addalumno" in request.POST:
+        usuario = request.POST.get('registro_Username','')
+        contra = request.POST.get('registro_Contraseña','')  
+        nombre = request.POST.get('registro_Nombre','')
+        apellido = request.POST.get('registro_Apellido','')
+        correo = request.POST.get('registro_Correo','')   
+        estado = request.POST.get('registro_Estado','')
+        institucion = request.POST.get('registro_Institucion','')
+        carrera = request.POST.get('registro_Carrera','')
+        semestre = request.POST.get('registro_Semestre','')
+        telefono = request.POST.get('registro_Telefono','')
+        existecorreo = Usuario.objects.filter(email = correo ).exists()
+        existeusuario = Usuario.objects.filter(username = usuario ).exists()
+        if existecorreo==True or existeusuario==True:
+            if existecorreo and existeusuario:
+                usm = Usuario.objects.get(username = usuario)
+                state = getattr(usm, 'usuario_activo')
+                if state == True:
+                    messages.error(request, "Ya existe un usuario con el correo y el nombre de usuario ingresados, el usuario no se registró")
+                else:
+                    usm.set_password(contra)
+                    usm.username(usuario)
+                    usm.email(correo)
+                    usm.nombres(nombre)
+                    usm.apellidos(apellido)
+                    usm.usuario_activo = True
+                    usm.telefono(telefono)
+                    usm.institucion(institucion)
+                    usm.estado(estado)
+                    usm.carrera(carrera)
+                    usm.semestre(semestre)
+                    usm.save()    
+                    messages.success(request, "El usuario se registró con exito")
+            if existecorreo and existeusuario==False:
+                messages.error(request, "Ya existe un usuario con el correo ingresado, el usuario no se registró")
+            if existeusuario and existecorreo==False:
+                usm = Usuario.objects.get(username = usuario)
+                state = getattr(usm, 'usuario_activo')
+                if state == True:
+                    messages.error(request, "Ya existe un usuario con el nombre de usuario ingresado, el usuario no se registró")
+                else:
+                    usm.set_password(contra)
+                    usm.username(usuario)
+                    usm.email(correo)
+                    usm.nombres(nombre)
+                    usm.apellidos(apellido)
+                    usm.usuario_activo = True
+                    usm.telefono(telefono)
+                    usm.institucion(institucion)
+                    usm.estado(estado)
+                    usm.carrera(carrera)
+                    usm.semestre(semestre)
+                    usm.save()   
+                    messages.success(request, "El usuario se registró con exito")
+        else:
+            usm = Usuario.objects.create_alumno_user(correo,usuario,nombre,apellido,contra,telefono,institucion,estado,carrera,semestre)   
+            usm.save()
+            messages.success(request, "El usuario se registró con exito")
+            return HttpResponseRedirect("/")    
     return render(request, 'register.html')
 
 @login_required
