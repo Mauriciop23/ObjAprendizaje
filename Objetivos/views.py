@@ -84,7 +84,9 @@ def registro(request):
 def dashboardGeneral(request):
     if request.user.rol == 'alumno': 
         return HttpResponseRedirect("/home/")
-    else:    
+    elif request.user.rol == 'admin':  
+        return HttpResponseRedirect("/dashboard_admin/")
+    else:       
         context = {
             'nombre_usuario': request.user.nombres,
             'activo_general': "active"
@@ -109,13 +111,82 @@ def dashboardGeneral(request):
 
 def dashboardContenido(request):
     context = {
-            'nombre_usuario': request.user.nombres,
-            'activo_contenido': "active"
-        }
+        'nombre_usuario': request.user.nombres,
+        'activo_contenido': "active"
+    }
     return render(request, 'dashboard_contenido.html', context)
 
 def dashboardAdmin(request):
-    return render(request, 'dashboard_admin.html')
+    if request.user.rol == 'alumno': 
+        return HttpResponseRedirect("/home/")
+    elif request.user.rol == 'profesor':  
+        return HttpResponseRedirect("/dashboard/")    
+    else:    
+        exito = False
+        if request.method == "POST" and "addprofesor" in request.POST:
+            usuario = request.POST.get('nvprof_Username','')
+            contra = request.POST.get('nvprof_Contrseña','')  
+            nombre = request.POST.get('nvprof_Nombre','')
+            apellido = request.POST.get('nvprof_Apellidos','')
+            correo = request.POST.get('nvprof_Correo','')   
+            institucion = request.POST.get('nvprof_Institucion','')
+            departamento = request.POST.get('nvprof_Departamento','')
+            rfc = request.POST.get('nvprof_RFC','')
+            telefono = request.POST.get('nvprof_Telefono','')
+            existecorreo = Usuario.objects.filter(email = correo ).exists()
+            existeusuario = Usuario.objects.filter(username = usuario ).exists()
+            if existecorreo==True or existeusuario==True:
+                if existecorreo and existeusuario:
+                    usm = Usuario.objects.get(username = usuario)
+                    state = getattr(usm, 'usuario_activo')
+                    if state == True:
+                        messages.error(request, "Ya existe un usuario con el correo y el nombre de usuario ingresados, el usuario no se registró")
+                    else:
+                        usm.set_password(contra)
+                        usm.username(usuario)
+                        usm.email(correo)
+                        usm.nombres(nombre)
+                        usm.apellidos(apellido)
+                        usm.usuario_activo = True
+                        usm.telefono(telefono)
+                        usm.institucion(institucion)
+                        usm.departamento(departamento)
+                        usm.rfc(rfc)
+                        usm.save()    
+                        messages.success(request, "El usuario se registró con exito")
+                        exito = True
+                if existecorreo and existeusuario==False:
+                    messages.error(request, "Ya existe un usuario con el correo ingresado, el usuario no se registró")
+                if existeusuario and existecorreo==False:
+                    usm = Usuario.objects.get(username = usuario)
+                    state = getattr(usm, 'usuario_activo')
+                    if state == True:
+                        messages.error(request, "Ya existe un usuario con el nombre de usuario ingresado, el usuario no se registró")
+                    else:
+                        usm.set_password(contra)
+                        usm.username(usuario)
+                        usm.email(correo)
+                        usm.nombres(nombre)
+                        usm.apellidos(apellido)
+                        usm.usuario_activo = True
+                        usm.telefono(telefono)
+                        usm.institucion(institucion)
+                        usm.departamento(departamento)
+                        usm.rfc(rfc)
+                        usm.save()   
+                        messages.success(request, "El usuario se registró con exito")
+                        exito = True
+            else:
+                usm = Usuario.objects.create_profesor_user(correo,usuario,nombre,apellido,contra,telefono,rfc,institucion,departamento)
+                usm.save()
+                messages.success(request, "El usuario se registró con exito")
+                exito = True
+        context = {
+            'nombre_usuario': request.user.nombres,
+            'activo_general': "active",
+            'exito': exito
+        }      
+        return render(request, 'dashboard_admin.html', context)
 
 def objeto(request):
     return render(request, 'objeto.html')
