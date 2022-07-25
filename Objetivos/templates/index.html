@@ -193,7 +193,7 @@
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar Objeto de Estudio..."
+                            <input type="text" id="buscador_Obj_Gen" class="form-control bg-light border-0 small" placeholder="Buscar Objeto de Estudio..."
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
@@ -391,7 +391,8 @@
                     <!-- Content Row -->
                     <div class="row">
                         <!-- INICIO FOR-->
-                        <div class="col-xxl-4 col-xl-6 col-md-6 mb-4"> <!-- Begin Card -->
+
+                        <article id="objeto_Card" class="col-xxl-4 col-xl-6 col-md-6 mb-4"> <!-- Begin Card -->
                             <div class="card shadow h-100 py-2">
                                 <img src="{% static 'img/Card_Image.png' %}" class="card-img-top p-4 rounded-5" style="border-radius: 60px;" alt="...">
                                 <div class="card-body">
@@ -425,7 +426,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> <!-- End Card -->
+                        </article> <!-- End Card -->
+                        
                         <!-- FIN FOR-->
                     </div>
                 </div> <!-- End Page Content -->
@@ -492,6 +494,17 @@
     <!-- Page level custom scripts -->
     <script src="{% static 'js/demo/chart-area-demo.js' %}"></script> 
     <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script> 
+
+<script>
+    $(document).ready(function(){
+      $("#buscador_Obj_Gen").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#objeto_Card").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
  
 </body>
 
