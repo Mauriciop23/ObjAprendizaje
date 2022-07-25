@@ -391,7 +391,8 @@
                     <!-- Content Row -->
                     <div class="row">
                         <!-- INICIO FOR-->
-
+                        {% for o in objetos %}
+                        <form action="" method="POST" enctype="multipart/form-data" class="col-12"> {% csrf_token %}
                         <article id="objeto_Card" class="col-xxl-4 col-xl-6 col-md-6 mb-4"> <!-- Begin Card -->
                             <div class="card shadow h-100 py-2">
                                 <img src="{% static 'img/Card_Image.png' %}" class="card-img-top p-4 rounded-5" style="border-radius: 60px;" alt="...">
@@ -399,15 +400,15 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="h2 font-weight-bold text-primary mb-1 text-center">
-                                                #Nombre Objeto#</div>
+                                                {{o.nombre}}</div>
                                             <div class="row my-3">
                                                 <div class="col">
                                                     <div class="d-flex align-items-center">
                                                         <img class="rounded-circle" src="{% static 'img/image5V2.png' %}" alt="..."> <!-- Profile Photo -->
 
                                                         <div class="ml-3">
-                                                            <h6 class="h6 mb-0 font-weight-bold text-gray-800">#Autor#</h6>
-                                                            <p class="text-xs mb-0 font-weight-bold text-gray-800">#FECHA#</p>
+                                                            <h6 class="h6 mb-0 font-weight-bold text-gray-800">{{o.autor_principal}}</h6>
+                                                            <p class="text-xs mb-0 font-weight-bold text-gray-800">{{o.fecha}}</p>
                                                         </div>
                                                     </div>
                                     
@@ -421,13 +422,14 @@
                                     </div>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2 text-center">
-                                            <button class="btn btn-secondary text-uppercase" type="button">Ver más detalles</button>
+                                            <button class="btn btn-secondary text-uppercase" type="submit" name="detalles" value="{{o.idobjeto}}">Ver más detalles</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </article> <!-- End Card -->
-                        
+                        </form>
+                        {% endfor %}
                         <!-- FIN FOR-->
                     </div>
                 </div> <!-- End Page Content -->

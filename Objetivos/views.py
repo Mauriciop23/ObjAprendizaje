@@ -11,11 +11,16 @@ from django.contrib import messages
 def home(request):
     if request.user.rol == 'alumno': profesor = False
     else: profesor = True
+    objetos = Objeto.objects.filter(estatus = 'activo')
     context = {
         'nombre_usuario': request.user.nombres,
         'apellidos_usuario': request.user.apellidos,
-        'profesor': profesor
+        'profesor': profesor,
+        'objetos': objetos
     }
+    if request.method == "POST" and "detalles" in request.POST:
+        request.session['idobjeto'] = request.POST.get('detalles','')
+        return HttpResponseRedirect("/objeto/") 
     return render(request, 'index.html', context)
 
 def registro(request):
@@ -93,6 +98,9 @@ def dashboardGeneral(request):
         }
         if request.method == "POST":
             if "addobjeto" in request.POST:
+                print(request.POST.get('multi-area',''))
+                print("///////////////")
+                print(request.POST.get('coautores',''))
                 objeto = request.POST.copy()
                 objeto['autor_principal']=request.user.username
                 objeto['estatus']='activo'
@@ -109,6 +117,7 @@ def dashboardGeneral(request):
                     print("Invalido")
         return render(request, 'dashboard_general.html', context)
 
+@login_required
 def dashboardContenido(request):
     context = {
         'nombre_usuario': request.user.nombres,
@@ -116,6 +125,7 @@ def dashboardContenido(request):
     }
     return render(request, 'dashboard_contenido.html', context)
 
+@login_required
 def dashboardAdmin(request):
     if request.user.rol == 'alumno': 
         return HttpResponseRedirect("/home/")
@@ -188,5 +198,18 @@ def dashboardAdmin(request):
         }      
         return render(request, 'dashboard_admin.html', context)
 
+@login_required
 def objeto(request):
-    return render(request, 'objeto.html')
+    if request.session.has_key('idobjeto'):
+        idobjeto = request.session.get('idobjeto')
+        del request.session['idobjeto']
+        if request.user.rol == 'alumno': profesor = False
+        else: profesor = True
+        consulta = Objeto.objects.get(idobjeto = idobjeto)
+        context = {
+            'nombre_usuario': request.user.nombres,
+            'apellidos_usuario': request.user.apellidos,
+            'profesor': profesor,
+            'consulta': consulta
+        }
+        return render(request, 'objeto.html', context)

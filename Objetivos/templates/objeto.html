@@ -14,7 +14,7 @@
 {%block objeto_contenido%}
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">#Nombre objeto#</h1>
+                <h1 class="h3 mb-0 text-gray-800">{{consulta.nombre}}</h1>
             </div>
 <div class="card">
     <div class="card-body">
@@ -23,16 +23,16 @@
             <div class="row">
                 <div class="col-8">
                     <label><strong>Descipción</strong></label>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip </p>
+                    <p>{{consulta.descripcion}}</p>
                     <hr>
                     <div class="d-flex flex-row justify-content-between">
                         <div>
                             <label><strong>Autor</strong></label>
-                            <p>Dra. María Yaneth Vega Flores</p>
+                            <p>{{consulta.autor_principal}}</p>
                         </div>
                         <div>
                             <label><strong>Fecha</strong></label>
-                            <p>13/07/2022</p>
+                            <p>{{consulta.fecha}}</p>
                         </div>
                         <div>
                             <label><strong>Materia</strong></label>
@@ -43,20 +43,22 @@
                     <div class="d-flex flex-row justify-content-around">
                         <div>
                             <label><strong>Calificación Actual</strong></label>
-                            <p>9.5/10</p>
+                            <p>{{consulta.calificacionfinal}}/10</p>
                         </div>
                         <div>
                             <label><strong>Total de descargas</strong></label>
-                            <p>23</p>
+                            <p>{{consulta.descargas}}</p>
                         </div>
                     </div>
                 
                 </div>
+                <form action="" method="POST"> {% csrf_token %}
                 <div class="col-4">
                     <div class="d-flex justify-content-center p-0 m-0 h-100">
-                        <button type="submit" class="align-self-center btn btn-primary btn-lg w-100">Descargar</button>
+                        <button type="submit" class="align-self-center btn btn-primary btn-lg w-100" href="{{consulta.archivo}}" download>Descargar</button>
                     </div>
                 </div>
+                </form>
             </div>
 
             <br>
