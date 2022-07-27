@@ -53,15 +53,18 @@
                 
                 </div>
                 <form action="" method="POST"> {% csrf_token %}
-                <div class="col-4">
-                    <div class="d-flex justify-content-center p-0 m-0 h-100">
-                        <button type="submit" class="align-self-center btn btn-primary btn-lg w-100" href="{{consulta.archivo}}" download>Descargar</button>
+                <div class="col-12">
+                    <div class="d-flex justify-content-center p-0 m-0 h-100">   
+                        <a href="{{consulta.archivo}}" >Descargar</a>
+                        <!--  <button type="submit" class="align-self-center btn btn-primary btn-lg w-100" href="" download>Descargar</button> -->
+                       
                     </div>
                 </div>
                 </form>
             </div>
 
             <br>
+            <h4><strong>Ruta actual:</strong>{{consulta.archivo}}</h4>
             <div class="row">
                 <div class="col-12">
                     <label><strong>Comentarios</strong></label>
