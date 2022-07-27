@@ -55,9 +55,8 @@
                 <form action="" method="POST"> {% csrf_token %}
                 <div class="col-12">
                     <div class="d-flex justify-content-center p-0 m-0 h-100">   
-                        <a href="{{consulta.archivo}}" >Descargar</a>
+                        <a href="/media/{{consulta.archivo}}" download>Descargar</a>
                         <!--  <button type="submit" class="align-self-center btn btn-primary btn-lg w-100" href="" download>Descargar</button> -->
-                       
                     </div>
                 </div>
                 </form>
