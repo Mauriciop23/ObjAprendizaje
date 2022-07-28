@@ -210,7 +210,7 @@ def objeto(request):
             'nombre_usuario': request.user.nombres,
             'apellidos_usuario': request.user.apellidos,
             'profesor': profesor,
-            'archivo': str(consulta.archivo),
             'consulta': consulta
         }
         return render(request, 'objeto.html', context)
+

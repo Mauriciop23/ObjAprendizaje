@@ -46,10 +46,10 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Materias
+                Areas
             </div>
 
-            <!-- Nav Item - Materias -->
+            <!-- Nav Item - Areas -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -389,11 +389,11 @@
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row">
+                    <div class="row" id="objeto_Card">
                         <!-- INICIO FOR-->
                         {% for o in objetos %}
-                        <form action="" method="POST" enctype="multipart/form-data" class="col-12"> {% csrf_token %}
-                        <article id="objeto_Card" class="col-xxl-4 col-xl-6 col-md-6 mb-4"> <!-- Begin Card -->
+                        <form id="objeto_Card_ind" action="" method="POST" enctype="multipart/form-data" class="col-xxl-4 col-xl-6 col-md-6 mb-4"> {% csrf_token %}
+                        <article> <!-- Begin Card --> 
                             <div class="card shadow h-100 py-2">
                                 <img src="{% static 'img/Card_Image.png' %}" class="card-img-top p-4 rounded-5" style="border-radius: 60px;" alt="...">
                                 <div class="card-body">
@@ -501,7 +501,7 @@
     $(document).ready(function(){
       $("#buscador_Obj_Gen").on("keyup", function() {
         var value = $(this).val().toLowerCase();
-        $("#objeto_Card").filter(function() {
+        $("#objeto_Card #objeto_Card_ind").filter(function() {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
       });
