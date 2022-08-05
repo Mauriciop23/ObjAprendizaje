@@ -14,6 +14,8 @@ class Objeto(models.Model):
     nombre = models.CharField(max_length=45)
     descripcion = models.CharField(max_length=45, blank=True, null=True)
     autor_principal = models.CharField(max_length=45, blank=True, null=True)
+    autor_principal_nombre = models.CharField(max_length=45, blank=True, null=True)
+    coautores = models.CharField(max_length=45, blank=True, null=True)
     estatus = models.CharField(max_length=45)
     fecha = models.DateField(blank=True, null=True)
     calificacionfinal = models.FloatField(blank=True, null=True)
@@ -28,7 +30,7 @@ class Objeto(models.Model):
 
 class Area(models.Model):
     idarea = models.AutoField(primary_key=True)
-    idobjeto = models.ForeignKey('objeto', models.DO_NOTHING, db_column='idobjeto')
+    idobjeto = models.CharField(max_length=45)
     nombre = models.CharField(max_length=45)
      
     def __str__(self):

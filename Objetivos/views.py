@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from Objetivos.models import Objeto, Usuario
+from Objetivos.models import Objeto, Usuario, Area
 from django.http.response import HttpResponse, HttpResponseRedirect
-from Objetivos.forms import ObjetoForm
+from Objetivos.forms import ObjetoForm, AreaForm
 import datetime
 from django.contrib import messages
 
@@ -98,13 +98,14 @@ def dashboardGeneral(request):
         }
         if request.method == "POST":
             if "addobjeto" in request.POST:
-                print(request.POST.get('multi-area',''))
-                print("///////////////")
                 print(request.POST.get('coautores',''))
                 objeto = request.POST.copy()
                 objeto['autor_principal']=request.user.username
+                objeto['autor_principal_nombre']=str(request.user.nombres) + ' ' + str(request.user.apellidos)
                 objeto['estatus']='activo'
                 objeto['fecha']=datetime.datetime.now()
+                objeto['calificacionfinal']=10
+                objeto['descargas']=0
                 form = ObjetoForm(objeto)
                 if form.is_valid():
                     objeto_guardado = form.save()
@@ -112,6 +113,14 @@ def dashboardGeneral(request):
                     objeto2 = Objeto.objects.get(pk=idobjeto)
                     documentos = ObjetoForm(objeto, request.FILES, instance=objeto2)
                     documentos.save()
+                    if str(request.POST.get('area1','')) == 'area1':
+                        Area.objects.create(idobjeto=idobjeto, nombre='area1')
+                    if str(request.POST.get('area2','')) == 'area2':
+                        Area.objects.create(idobjeto=idobjeto, nombre='area2')
+                    if str(request.POST.get('area3','')) == 'area3':
+                        Area.objects.create(idobjeto=idobjeto, nombre='area3')
+                    if str(request.POST.get('area4','')) == 'area4':
+                        Area.objects.create(idobjeto=idobjeto, nombre='area4')
                     return HttpResponseRedirect('/dashboard/')
                 else:
                     print("Invalido")
@@ -202,15 +211,22 @@ def dashboardAdmin(request):
 def objeto(request):
     if request.session.has_key('idobjeto'):
         idobjeto = request.session.get('idobjeto')
-        del request.session['idobjeto']
         if request.user.rol == 'alumno': profesor = False
         else: profesor = True
         consulta = Objeto.objects.get(idobjeto = idobjeto)
+        areas = Area.objects.filter(idobjeto = idobjeto)
         context = {
             'nombre_usuario': request.user.nombres,
             'apellidos_usuario': request.user.apellidos,
             'profesor': profesor,
-            'consulta': consulta
+            'consulta': consulta,
+            'areas': areas
         }
+        if request.method == "POST" and "desc" in request.POST:
+            obj = Objeto.objects.get(idobjeto = request.POST.get('desc',''))
+            descargas = getattr(obj, 'descargas')
+            descargas += 1
+            obj.descargas = descargas
+            obj.save()
         return render(request, 'objeto.html', context)
 
