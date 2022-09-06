@@ -23,12 +23,6 @@
                             <div class="col-12 col-md-8 d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h3 mb-0 text-gray-800">Dashboard Administrativo</h1>
                             </div>
-                            <div class="col-12 col-md-4 px-0">
-                                <button type="button" class="btn btn-info w-100" data-toggle="modal" data-target="#nuevoobjetoModal">
-                                    <i class="fas fa-fw fa-plus"></i>
-                                    Nuevo Profesor
-                                </button>
-                            </div>
                             
                         </div>
                     </div>
@@ -38,6 +32,37 @@
 
                     <div class="row">
                         <!-- Area Chart -->
+                        
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Información General</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-around">
+                                        <div class="text-center">
+                                            <span class="display-3 text-primary">#</span>
+                                            <h6 class="m-0 text-primary ">Objetos</h6>
+                                        </div>
+                                        <div class="text-center" >
+                                            
+                                            <span class="display-3 text-primary">#</span>
+                                            <h6 class="m-0 text-primary">Alumnos</h6>
+                                        </div>
+                                        <div class="text-center" >
+                                            <span class="display-3 text-primary">#</span>
+                                            <h6 class="m-0 text-primary">Profesores</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Area Chart -->
+                        
                         <div class="col-xl-12 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
@@ -132,80 +157,7 @@
                        
                     </div>
 
-                <!-- Nuevo Profesor Modal -->
-                <div class="modal fade" id="nuevoobjetoModal" tabindex="-1" role="dialog" aria-labelledby="nuevoobjetoModal"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title text-primary" id="nuevoobjetoModal">Registrar Nuevo Profesor</h5>
-                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <form method="post" enctype="multipart/form-data"> {% csrf_token %}
-                                <div class="modal-body text-gray-800">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12">
-                                                <label for="nvprof_Username">Username</label>
-                                                <input type="text" class="form-control" id="nvprof_Username" name="nvprof_Username" required>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="nvprof_Nombre">Nombre</label>
-                                                <input type="text" class="form-control" id="nvprof_Nombre" name="nvprof_Nombre" required>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="nvprof_Apellidos">Apellidos</label>
-                                                <input type="text" class="form-control" id="nvprof_Apellidos" name="nvprof_Apellidos" required>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="nvprof_Correo">Correo</label>
-                                                <input type="email" class="form-control" id="nvprof_Correo" name="nvprof_Correo" required>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="nvprof_Telefono">Teléfono</label>
-                                                <input type="number" class="form-control" id="nvprof_Telefono" name="nvprof_Telefono" required>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="nvprof_RFC">RFC</label>
-                                                <input type="text" class="form-control" id="nvprof_RFC" name="nvprof_RFC" required>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="nvprof_Institucion">Institución</label>
-                                                <input type="text" class="form-control" id="nvprof_Institucion" name="nvprof_Institucion" required>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="nvprof_Departamento">Departamento</label>
-                                                <select class="form-control" id="nvprof_Departamento" name="nvprof_Departamento">
-                                                  <option value="Departamento 1">Departamento 1</option>
-                                                  <option value="Departamento 2">Departamento 2</option>
-                                                  <option value="Departamento 3">Departamento 3</option>
-                                                  <option value="Departamento 4">Departamento 4</option>
-                                                  <option value="Departamento 5">Departamento 5</option>
-                                                </select>
-                                            </div>
-                                            <hr>
-                                            <div class="form-group col-md-12">
-                                                <label for="nvprof_Contrseña">Contraseña</label>
-                                                <input type="text" class="form-control" id="nvprof_Contrseña" name="nvprof_Contrseña" required>
-                                            </div>
-                                        </div>
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-danger" type="button" data-dismiss="modal">
-                                        <i class="fas fa-ban "></i>
-                                        Cancelar
-                                    </button>
-                                    <button type="submit" class="btn btn-success" name="addprofesor" value="addprofesor">
-                                        <i class="fas fa-check mr-2"></i>
-                                        Agregar
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+
                 
         
 {%endblock%}
