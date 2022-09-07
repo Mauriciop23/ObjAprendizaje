@@ -7,126 +7,205 @@
 {% endblock %}
 
 {% block Dashboard_General%}
-                    <!-- Page Heading -->
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12 col-md-8 d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h3 mb-0 text-gray-800">Mis Objetos de Estudio</h1>
-                            </div>
-                        </div>
-                    </div>
+<!-- Page Heading -->
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-8 d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Mis Objetos de Estudio</h1>
+        </div>
+        <div class="col-12 col-md-4 px-0">
+            <button type="button" class="btn btn-info w-100" data-toggle="modal" data-target="#nuevoobjetoModal">
+                <i class="fas fa-fw fa-plus"></i>
+                Nuevo Objeto
+            </button>
+        </div>
+    </div>
+</div>
                     
+<!-- Content Row -->
+<div class="row">
+    <!-- Area Chart -->
+    <div class="col-xl-12 col-lg-7">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div
+                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Todos los objetos</h6>
+                
+                <div class="d-flex col-4 px-0 align-items-center">
+                    <i class="fas fa-search text-primary mr-2" style="font-size: 1rem;"></i>
+                    <input type="text" id="buscador_Obj" class="form-control" placeholder="Buscar objeto...">
+            
+                </div>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <table class="table table-striped table-hover text-gray-800" id="tabla_Obj">
+                    <thead>
+                        <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Estatus</th>
+                        <th scope="col">Calificación</th>
+                        <th scope="col">Detalles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- INICIO FOR -->
+                        <tr>
+                            <td>#Nombre del Objeto#</td>
+                            <td>#Fecha#</td>
+                            <td>#Calificación#/10</td>
+                            <td><button type="button" class="btn btn-info" style="pointer-events: none;">#ESTATUS#</button></td>
+                            <td>
+                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal_InfoObj"
+                                    onclick="modal_InfoObjContent('#Nombre Objeto#', '#Descrip Obj1#', '#Autor Obj1#', '#fecha Obj1#', '#carrera Obj1#', '#descargas Obj1#', '#ID Obj1#')">
+                                    <i class="fas fa-info-circle mr-2"></i>Ver Detalles
+                                </button>
+                                <!-- 
+                                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#modal_EditObj" >
+                                    <i class="fas fa-edit mr-2"></i> Editar</button>
+                                -->
+                            </td>
+                        </tr>
 
-                    <!-- Content Row -->
+                        <!-- FIN FOR -->
+                        
+                    </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <div class="row">
-                        <!-- Area Chart -->
-                        <div class="col-xl-12 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Todos los objetos</h6>
-                                    
-                                    <div class="d-flex col-4 px-0 align-items-center">
-                                        <i class="fas fa-search text-primary mr-2" style="font-size: 1rem;"></i>
-                                        <input type="text" id="buscador_Obj" class="form-control" placeholder="Buscar objeto...">
-                              
-                                    </div>
+<!-- Modal Info Objeto  -->
+<div class="modal fade" id="modal_InfoObj" tabindex="-1" role="dialog" aria-labelledby="modal_InfoObj_ID" aria-hidden="true">
+    <div class="modal-dialog text-gray-800" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal_InfoObj_Label">#NOMBRE DEL OBJETO#</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="list-group d-flex">
+                <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
+                    <h5 class="mb-1"><strong>Descripción</strong></h5>
+                    <p class="mb-1" id="modal_InfoObj_desc">#Descripción#</p>
+                </div>
+                <div class="d-flex flex-row">
+                    <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
+                        <h5 class="mb-1"><strong>Autor</strong></h5>
+                        <p class="mb-1" id="modal_InfoObj_autor">#AUTOR#</p>
+                    </div>
+                    <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
+                        <h5 class="mb-1"><strong>Fecha</strong></h5>
+                        <p class="mb-1" id="modal_InfoObj_fecha">#Fecha#</p>
+                    </div>
+                </div>
+                <div class="d-flex flex-row">
+                    <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
+                        <h5 class="mb-1"><strong>Carrera</strong></h5>
+                        <p class="mb-1" id="modal_InfoObj_carrera">#CARRERA#</p>
+                    </div>
+                    <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
+                        <h5 class="mb-1"><strong>Descargas</strong></h5>
+                        <p class="mb-1" id="modal_InfoObj_descargas">#NO. DE DESCARGAS#</p>
+                    </div>
+                </div>
+                
+            </div>
+                <hr>
+            <div class="d-flex justify-content-between">
+                <form>
+                    {% csrf_token %}
+                    <div id="modal_InfoObj_form">
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+            <i class="fas fa-check mr-2"></i>Finalizar</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Nuevo Objeto Modal -->
+<div class="modal fade" id="nuevoobjetoModal" tabindex="-1" role="dialog" aria-labelledby="nuevoobjetoModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-primary" id="nuevoobjetoModal">Nuevo Objeto de Aprendizaje</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body text-gray-800">
+                    
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="nvobj_Nombre">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="nvobj_Archivo">Archivo</label>
+                                <input type="file" class="form-control-file rounded h-5" id="archivo" name="archivo" style="border: 1px solid #d1d3e2;">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="nvobj_Descrip">Descripción</label>
+                                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" maxlength="100" required></textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="nvobj_Descrip">Descripción en otro idioma (Opcional)</label>
+                                <textarea class="form-control" id="descripcion_alterna" name="descripcion_alterna" rows="3" placeholder="Descripción en Ingles, Frances, Dialecto, etc..."></textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="nvobj_Carrera">Area(s)</label> <br>
+                                <!-- INICIO FOR -->
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="#AREA#" name="#AREA#" value="#AREA#">
+                                    <label class="form-check-label" for="#AREA#">#AREA#</label>
                                 </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <table class="table table-striped table-hover text-gray-800" id="tabla_Obj">
-                                        <thead>
-                                          <tr>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Fecha</th>
-                                            <th scope="col">Estatus</th>
-                                            <th scope="col">Calificación</th>
-                                            <th scope="col">Detalles</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- INICIO FOR -->
-                                          <tr>
-                                            <td>#Nombre del Objeto#</td>
-                                            <td>#Fecha#</td>
-                                            <td>#Calificación#/10</td>
-                                            <td><button type="button" class="btn btn-info" style="pointer-events: none;">#ESTATUS#</button></td>
-
-                                            <td>
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_InfoObj_IdObj">
-                                                    <i class="fas fa-info-circle mr-2"></i>Ver Detalles</button>
-                                                <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#modal_EditObj" >
-                                                    <i class="fas fa-edit mr-2"></i> Editar</button>
-                                                
-                                            </td>
-                                                <!-- Modal Info Objeto  -->
-                                                <div class="modal fade" id="modal_InfoObj_IdObj" tabindex="-1" role="dialog" aria-labelledby="modal_InfoObj_IdObjLabel" aria-hidden="true">
-                                                <div class="modal-dialog text-gray-800" role="document">
-                                                  <div class="modal-content">
-                                                    <div class="modal-header">
-                                                      <h5 class="modal-title" id="modal_InfoObj_IdObjLabel">#NOMBRE DEL OBJETO#</h5>
-                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                      </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="list-group d-flex">
-                                                            <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
-                                                                <h5 class="mb-1"><strong>Descripción</strong></h5>
-                                                                <p class="mb-1">#Descripción#</p>
-                                                            </div>
-                                                            <div class="d-flex flex-row">
-                                                                <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
-                                                                    <h5 class="mb-1"><strong>Autor</strong></h5>
-                                                                    <p class="mb-1">#AUTOR#</p>
-                                                                </div>
-                                                                <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
-                                                                    <h5 class="mb-1"><strong>Fecha</strong></h5>
-                                                                    <p class="mb-1">#Fecha#</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="d-flex flex-row">
-                                                                <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
-                                                                    <h5 class="mb-1"><strong>Carrera</strong></h5>
-                                                                    <p class="mb-1">#CARRERA#</p>
-                                                                </div>
-                                                                <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
-                                                                    <h5 class="mb-1"><strong>Descargas</strong></h5>
-                                                                    <p class="mb-1">#NO. DE DESCARGAS#</p>
-                                                                </div>
-                                                            </div>
-                                                            
-                                                        </div>
-                                                          <hr>
-                                                        <div class="d-flex justify-content-between">
-                                                            <form>
-                                                                {% csrf_token %}
-                                                                <button type="button" class="btn btn-danger" type="submit">
-                                                                <i class="fas fa-trash mr-2"></i>Eliminar Objeto</button>
-                                                            </form>
-                                                            <button type="button" class="btn btn-success">
-                                                            <i class="fas fa-download mr-2"></i>Descargar</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                      <button type="button" class="btn btn-primary" data-dismiss="modal">
-                                                        <i class="fas fa-check mr-2"></i>Finalizar</button>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                </div>
-                                          </tr>
-
-                                          <!-- FIN FOR -->
-                                          
-                                        </tbody>
-                                      </table>
+                                <!-- FIN FOR -->
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="nvobj_Departamento">departamento(s)</label> <br>
+                                <!-- INICIO FOR -->
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="#DEPARTAMENTO#" name="#DEPARTAMENTO#" value="#DEPARTAMENTO#">
+                                    <label class="form-check-label" for="#DEPARTAMENTO#">#DEPARTAMENTO#</label>
                                 </div>
+                                <!-- FIN FOR -->
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="nvobj_Nombre">Coautores</label>
+                                <input type="text" class="form-control" id="coautores" name="coautores" placeholder="Ejemplo Coautor1, Ejemplo Coautor2, Ejemplo Coautor3">
                             </div>
                         </div>
-                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">
+                        <i class="fas fa-ban "></i>
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-success" name="addobjeto" value="addobjeto">
+                        <i class="fas fa-check mr-2"></i>
+                        Agregar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 {%endblock%}
 
 
@@ -141,6 +220,25 @@
         });
       });
     });
+
+    const modal_InfoObjContent = (obj_titulo, obj_desc, obj_autor, obj_fecha, obj_carrera, obj_descargas, obj_id) =>{
+    const titulo = document.getElementById('modal_InfoObj_Label')
+    const descrip = document.getElementById('modal_InfoObj_desc')
+    const autor = document.getElementById('modal_InfoObj_autor')
+    const fecha = document.getElementById('modal_InfoObj_fecha')
+    const carrera = document.getElementById('modal_InfoObj_carrera')
+    const descargas = document.getElementById('modal_InfoObj_descargas')
+    const form = document.getElementById('modal_InfoObj_form')
+    
+    titulo.innerText = obj_titulo
+    descrip.innerText = obj_desc
+    autor.innerText = obj_autor
+    fecha.innerText = obj_fecha
+    carrera.innerText = obj_carrera
+    descargas.innerText = obj_descargas
+    form.innerHTML= '<button type="button" class="btn btn-danger" type="submit"> <i class="fas fa-trash mr-2"></i>Eliminar Objeto </button> <button type="button" class="btn btn-success"> <i class="fas fa-download mr-2"></i>Descargar </button>'
+
+  }
 </script>
 
 {%endblock%}

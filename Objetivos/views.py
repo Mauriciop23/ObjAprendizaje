@@ -135,12 +135,12 @@ def dashboardContenido(request):
     return render(request, 'dashboard_contenido.html', context)
 
 @login_required
-def dashboardObjetos(request):
+def dashboardAjustes(request):
     context = {
         'nombre_usuario': request.user.nombres,
         'activo_Objeto': "active"
     }
-    return render(request, 'dashboard_objetos.html', context)
+    return render(request, 'dashboard_ajustes.html', context)
 
 @login_required
 def dashboardProfesores(request):

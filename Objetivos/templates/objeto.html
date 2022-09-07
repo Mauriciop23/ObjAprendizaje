@@ -2,14 +2,97 @@
 {% load static %}
 
         {% block metadata %}
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <meta name="description" content="">
-            <meta name="author" content="">
+            <meta name="author" content="#NOMBRE COMPLETO DEL AUTOR#, #CORREO#">
+            <meta name="description" content="#DESCRIPCIÓN#">
+            <meta name="keywords" content="#AREAS# (separadas por comas)">
+            <meta name="date" content="#FECHA# (Formato: DD/MM/AAAA)">
+
         {%endblock%}
 
 {% block title %}{{consulta.nombre}} | {{consulta.autor_principal}}{%endblock%}
+{% block css %}
+    <style>
+:root {
+	--u: 1.5vmin;
+	--clr: #777;
+	--bg: #444857;
+}
+
+.liked_button {
+	position: relative;
+    width: calc(var(--u) * 10);
+    height: calc(var(--u) * 10);
+}
+
+#liked_input { display: none; }	
+
+.liked_label {
+    background: var(--bg);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: calc(var(--u) * 1.5);
+	cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.liked_label span {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	animation: dislike 0.5s ease 0s;
+}
+.liked_label span:before {
+    content: "";
+    position: absolute;
+    border-radius: 0.25vmin;
+    border: 3.6vmin solid #fff0;
+    border-top: 4vmin solid var(--clr);
+    margin-top: 7.65vmin;
+    margin-left: 4vmin;
+}
+
+.liked_label span:after {
+    content: "";
+    position: absolute;
+    background: var(--clr);
+    width: 5vmin;
+    height: 5vmin;
+    border-radius: 100%;
+    margin-left: 3.35vmin;
+    margin-top: 3.5vmin;
+    box-shadow: 3.5vmin 0 0 0 var(--clr);
+}
+
+#liked_input:checked + .liked_label span {
+	--clr: #ff3c41; 
+	animation: like 0.5s ease 0s;
+}
+
+
+@keyframes like {
+	75% { transform: scale(1.25); }
+}
+@keyframes dislike {
+	75% { transform: scale(0.75); }
+}
+
+
+
+
+
+
+.liked_button:hover .liked_label span:before, .liked_button:hover .liked_label span:after {
+    --clr: #9d4958;
+}
+
+.liked_button:hover #liked_input:checked + .liked_label span:before, .liked_button:hover #liked_input:checked + .liked_label span:after {
+    --clr: #ff3c41; 
+}
+    </style>
+{%endblock%}
 
 {%block objeto_contenido%}
             <!-- Page Heading -->
@@ -24,11 +107,13 @@
                 <div class="col-12 col-md-8">
                     <label><strong>Descipción</strong></label>
                     <p>{{consulta.descripcion}}</p>
+                    <label><strong>Resume</strong></label>
+                    <p>#Descripción en humilde si la hay#</p>
                     <hr>
                     <div class="d-flex flex-row justify-content-between">
                         <div>
                             <label><strong>Autor</strong></label>
-                            <p>{{consulta.autor_principal}}</p>
+                            <p>#NOMBRE COMPLETO#</p>
                             
                         </div>
                         <div>
@@ -50,11 +135,21 @@
                     <div class="d-flex flex-row justify-content-around">
                         <div>
                             <label><strong>Calificación Actual</strong></label>
+                            {%if consulta.calificacionfinal == none%}
+                            <p>--/10</p>
+                            {%else%}
                             <p>{{consulta.calificacionfinal}}/10</p>
+                            {%endif%}
+                            
                         </div>
                         <div>
                             <label><strong>Total de descargas</strong></label>
+                            {%if consulta.descargas == none%}
+                            <p>0</p>
+                            {%else%}
                             <p>{{consulta.descargas}}</p>
+                            {%endif%}
+                            
                         </div>
                     </div>
                 
@@ -70,28 +165,24 @@
             <br>
             <div class="row">
                 <div class="col-12">
-                    <label><strong>Comentarios</strong></label>
+                    <label><strong>Calificar Contenido</strong></label>
                 </div>
                 <div class="col-12">
-                    <!-- INICIO FOR -->
-                    <div class="card my-3">
-                        <div class="card-body px-5">
-                            <div class="d-flex flex-row justify-content-between">
-                                <div>
-                                    <label class="row m-0 p-0"><strong>Dra. María Yaneth Vega Flores</strong></label>
-                                    <span class="row m-0 p-0">13/07/2022</span>
-                                </div>
-                                <div>
-                                    <span>Calificación: <strong>9.5</strong></span>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip  </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- FIN FOR -->
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="reaction" id="like" value="1">
+                        <i class="fas fa-thumbs-up mx-2"></i>
+                        <label class="form-check-label" for="inlineRadio1">Like</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="reaction" id="love" value="2">
+                        <i class="fas fa-heart mx-2"></i>
+                        <label class="form-check-label" for="inlineRadio2">Love It</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="reaction" id="dislike" value="3">
+                        <i class="fas fa-thumbs-down mx-2"></i>
+                        <label class="form-check-label" for="inlineRadio3">Dislike</label>
+                      </div>
                 </div>
             </div>
         </div>

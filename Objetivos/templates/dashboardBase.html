@@ -7,9 +7,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
+    
+    <link rel="icon" type="image/x-icon" href="{% static 'img/Logo-ITMorelia-FAVICON.png' %}">
     <title>Profesores | Repositorio Tec</title>
 
     <!-- Custom fonts for this template-->
@@ -77,9 +76,9 @@
             </li>
 
             <li class="nav-item {{ activo_Objeto }}">
-                <a class="nav-link " href="{% url 'dashboardObjetos' %}" aria-expanded="true">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Objetos</span>
+                <a class="nav-link " href="{% url 'dashboardAjustes' %}" aria-expanded="true">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Ajustes</span>
                 </a>
             </li>
 
@@ -219,9 +218,9 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" style="cursor: pointer;" data-toggle="modal" data-target="#modal_InfoPerfil">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Perfil
+                                    Editar  Perfil
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -234,6 +233,79 @@
                     </ul>
 
                 </nav>
+                <!-- MODAL Perfil Info -->
+                <div class="modal fade" id="modal_InfoPerfil" tabindex="-1" role="dialog" aria-labelledby="modal_InfoPerfil"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-primary" id="modal_InfoPerfilLabel">#USERNAME#</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <form method="post" enctype="multipart/form-data"> {% csrf_token %}
+                            <div class="modal-body text-gray-800">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <label for="editPerfil_Foto">Foto de Perfil</label>
+                                            <input type="file" class="form-control" id="editPerfil_Foto" name="editPerfil_Foto" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="editPerfil_Nombre">Nombre</label>
+                                            <input type="text" class="form-control" id="editPerfil_Nombre" name="editPerfil_Nombre" value="#NOMBRE#" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="editPerfil_Apellidos">Apellidos</label>
+                                            <input type="text" class="form-control" id="editPerfil_Apellidos" name="editPerfil_Apellidos" value="#APELLIDOS#" required>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="editPerfil_Correo">Correo</label>
+                                            <input type="email" class="form-control" id="editPerfil_Correo" name="editPerfil_Correo" value="#CORREO#" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="editPerfil_Telefono">Teléfono</label>
+                                            <input type="text" class="form-control" id="editPerfil_Telefono" name="editPerfil_Telefono" value="#TELEFONO#" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="editPerfil_RFC">RFC</label>
+                                            <input type="text" class="form-control" id="editPerfil_RFC" name="editPerfil_RFC" value="#RFC#" required>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="editPerfil_Institucion">Institución</label>
+                                            <input type="text" class="form-control" id="editPerfil_Institucion" name="editPerfil_Institucion" value="#INSTITUCIÓN#" required>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="editPerfil_Departamento">Departamento</label>
+                                            <select class="form-control" id="editPerfil_Departamento" name="editPerfil_Departamento">
+                                              <option value="#DEPARTAMENTO#">#DEPARTAMENTO#</option>
+
+                                            </select>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group col-md-12">
+                                            <label for="editPerfil_Contrseña">Contraseña</label>
+                                            <input type="text" class="form-control" id="editPerfil_Contrseña" name="editPerfil_Contrseña" value="#CONTRASEÑA#" required>
+                                        </div>
+                                    </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-danger" type="button" data-dismiss="modal">
+                                    <i class="fas fa-ban "></i>
+                                    Cancelar
+                                </button>
+                                <form action="">
+                                    <button type="submit" class="btn btn-success" name="addprofesor" value="addprofesor">
+                                        <i class="fas fa-check mr-2"></i>
+                                        Actualizar
+                                    </button>
+                                </form>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->

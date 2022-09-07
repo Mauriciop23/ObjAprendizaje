@@ -3,7 +3,7 @@
 }
 
 .rounded-5{
-    border-radius: 150px !important;
+    border-radius: 10px !important;
 }
 
 .bg-login-image2 {
@@ -12,4 +12,84 @@
     background-size: cover;
   }
 
+  
+:root {
+	--u: 1.5vmin;
+	--clr: #777;
+	--bg: #444857;
+}
+
+.liked_button {
+	position: relative;
+    width: calc(var(--u) * 10);
+    height: calc(var(--u) * 10);
+}
+
+#liked_input { display: none; }	
+
+.liked_label {
+    background: var(--bg);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: calc(var(--u) * 1.5);
+	cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.liked_label span {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	animation: dislike 0.5s ease 0s;
+}
+.liked_label span:before {
+    content: "";
+    position: absolute;
+    border-radius: 0.25vmin;
+    border: 3.6vmin solid #fff0;
+    border-top: 4vmin solid var(--clr);
+    margin-top: 7.65vmin;
+    margin-left: 4vmin;
+}
+
+.liked_label span:after {
+    content: "";
+    position: absolute;
+    background: var(--clr);
+    width: 5vmin;
+    height: 5vmin;
+    border-radius: 100%;
+    margin-left: 3.35vmin;
+    margin-top: 3.5vmin;
+    box-shadow: 3.5vmin 0 0 0 var(--clr);
+}
+
+#liked_input:checked + .liked_label span {
+	--clr: #ff3c41; 
+	animation: like 0.5s ease 0s;
+}
+
+
+@keyframes like {
+	75% { transform: scale(1.25); }
+}
+@keyframes dislike {
+	75% { transform: scale(0.75); }
+}
+
+
+
+
+
+
+.liked_button:hover .liked_label span:before, .liked_button:hover .liked_label span:after {
+    --clr: #9d4958;
+}
+
+.liked_button:hover #liked_input:checked + .liked_label span:before, .liked_button:hover #liked_input:checked + .liked_label span:after {
+    --clr: #ff3c41; 
+}
   

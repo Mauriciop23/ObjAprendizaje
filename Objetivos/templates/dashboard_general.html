@@ -12,14 +12,7 @@
                         <div class="row">
                             <div class="col-12 col-md-8 d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h3 mb-0 text-gray-800">Información General</h1>
-                            </div>
-                            <div class="col-12 col-md-4 px-0">
-                                <button type="button" class="btn btn-info w-100" data-toggle="modal" data-target="#nuevoobjetoModal">
-                                    <i class="fas fa-fw fa-plus"></i>
-                                    Nuevo Objeto
-                                </button>
-                            </div>
-                            
+                            </div>                            
                         </div>
                     </div>
                     
@@ -122,82 +115,7 @@
                        
                     </div>
 
-                <!-- Nuevo Objeto Modal -->
-                <div class="modal fade" id="nuevoobjetoModal" tabindex="-1" role="dialog" aria-labelledby="nuevoobjetoModal"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title text-primary" id="nuevoobjetoModal">Nuevo Objeto de Aprendizaje</h5>
-                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <form method="post" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                <div class="modal-body text-gray-800">
-                                    
-                                        <div class="form-row">
-                                            <div class="form-group col-md-12">
-                                                <label for="nvobj_Nombre">Nombre</label>
-                                                <input type="text" class="form-control" id="nombre" name="nombre" required>
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="nvobj_Archivo">Archivo</label>
-                                                <input type="file" class="form-control-file rounded h-5" id="archivo" name="archivo" style="border: 1px solid #d1d3e2;">
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="nvobj_Descrip">Descripción</label>
-                                                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
-                                              </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="nvobj_Carrera">Area(s)</label> <br>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="area1" name="area1" value="area1">
-                                                    <label class="form-check-label" for="area1">Area 1</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="area2" name="area2" value="area2">
-                                                    <label class="form-check-label" for="area2">Area 2</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="area3" name="area3" value="area3">
-                                                    <label class="form-check-label" for="area3">Area 3</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="area4" name="area4" value="area4">
-                                                    <label class="form-check-label" for="area4">Area 4</label>
-                                                </div>
-                                                <!--
-                                                <select name="multi-area" id="multi-area" multiple="multiple">
-                                                    <option value="Area 1">Area 1</option>
-                                                    <option value="Area 2">Area 2</option>
-                                                    <option value="Area 3">Area 3</option>
-                                                    <option value="Area 4">Area 4</option>
-                                                </select>
-                                                -->
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="nvobj_Nombre">Coautores</label>
-                                                <input type="text" class="form-control" id="coautores" name="coautores" placeholder="Ejemplo Coautor1, Ejemplo Coautor2, Ejemplo Coautor3">
-                                            </div>
-                                        </div>
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-danger" type="button" data-dismiss="modal">
-                                        <i class="fas fa-ban "></i>
-                                        Cancelar
-                                    </button>
-                                    <button type="submit" class="btn btn-success" name="addobjeto" value="addobjeto">
-                                        <i class="fas fa-check mr-2"></i>
-                                        Agregar
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+
                 
         
 {%endblock%}
