@@ -9,6 +9,19 @@
 {% block Dashboard_General%}
                     <!-- Page Heading -->
                     <div class="container">
+                        {% for message in messages %}
+                            {% if exito %}
+                            <div class="alert alert-success">
+                                <a class="close" href="#" data-dismiss="alert">×</a>
+                                    {{ message }}
+                            </div>
+                            {% else %}
+                            <div class="alert alert-danger">
+                                <a class="close" href="#" data-dismiss="alert">×</a>
+                                    {{ message }}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
                         <div class="row">
                             <div class="col-12 col-md-8 d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h3 mb-0 text-gray-800">Administración de Profesores</h1>
@@ -55,11 +68,12 @@
                                         </thead>
                                         <tbody>
                                             <!-- INICIO FOR -->
+                                            {% for p in profesores%}
                                           <tr>
-                                            <td>#Nombre del profesor#</td>
-                                            <td>#Username#</td>
-                                            <td>#Departamento#</td>
-                                            <td><button type="button" class="btn btn-secondary" style="pointer-events: none;">#</button></td>
+                                            <td>{{p.nombres}} {{p.apellidos}}</td>
+                                            <td>{{p.username}}</td>
+                                            <td>{{p.departamento}}</td>
+                                            <td><button type="button" class="btn btn-secondary" style="pointer-events: none;">{{p.nobjetos}}</button></td>
 
                                             <td>
                                                 <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal_Info_Profe">
@@ -72,7 +86,7 @@
                                                 <div class="modal-dialog text-gray-800" role="document">
                                                   <div class="modal-content">
                                                     <div class="modal-header">
-                                                      <h5 class="modal-title" id="modal_Info_ProfeLabel">#USERNAME#</h5>
+                                                      <h5 class="modal-title" id="modal_Info_ProfeLabel">{{p.username}}</h5>
                                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                       </button>
@@ -81,26 +95,26 @@
                                                         <div class="list-group d-flex">
                                                             <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
                                                                 <h5 class="mb-1"><strong>Nombre completo</strong></h5>
-                                                                <p class="mb-1">#Nombre completo#</p>
+                                                                <p class="mb-1">{{p.nombres}} {{p.apellidos}}</p>
                                                             </div>
                                                             <div class="d-flex flex-row">
                                                                 <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
                                                                     <h5 class="mb-1"><strong>Teléfono</strong></h5>
-                                                                    <p class="mb-1">#Teléfono#</p>
+                                                                    <p class="mb-1">{{p.telefono}}</p>
                                                                 </div>
                                                                 <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
                                                                     <h5 class="mb-1"><strong>Correo</strong></h5>
-                                                                    <p class="mb-1">#Correo#</p>
+                                                                    <p class="mb-1">{{p.email}}</p>
                                                                 </div>
                                                             </div>
                                                             <div class="d-flex flex-row">
                                                                 <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
                                                                     <h5 class="mb-1"><strong>Institución</strong></h5>
-                                                                    <p class="mb-1">#Institución#</p>
+                                                                    <p class="mb-1">{{p.institucion}}</p>
                                                                 </div>
                                                                 <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
                                                                     <h5 class="mb-1"><strong>RFC</strong></h5>
-                                                                    <p class="mb-1">#RFC#</p>
+                                                                    <p class="mb-1">{{p.rfc}}</p>
                                                                 </div>
                                                             </div>
                                                             
@@ -119,7 +133,7 @@
                                                 </div>
                                                 </div>
                                           </tr>
-
+                                          {% endfor %}
                                           <!-- FIN FOR -->
                                           
                                         </tbody>
@@ -174,8 +188,9 @@
                                         <div class="form-group col-md-12">
                                             <label for="nvprof_Departamento">Departamento</label>
                                             <select class="form-control" id="nvprof_Departamento" name="nvprof_Departamento">
-                                              <option value="#DEPARTAMENTO#">#DEPARTAMENTO#</option>
-
+                                                {% for d in departamentos %}
+                                                <option value="{{d.nombre}}">{{d.nombre}}</option>
+                                                {% endfor %}
                                             </select>
                                         </div>
                                         <hr>

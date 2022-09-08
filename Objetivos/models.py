@@ -10,9 +10,10 @@ def objeto_directory_path(instance, filename):
 
 class Objeto(models.Model):
     idobjeto = models.AutoField(primary_key=True)
-    archivo = models.FileField(upload_to=objeto_directory_path, max_length=150, blank=True, null=True)
+    archivo = models.FileField(upload_to=objeto_directory_path, max_length=240, blank=True, null=True)
     nombre = models.CharField(max_length=45)
-    descripcion = models.CharField(max_length=45, blank=True, null=True)
+    descripcion = models.CharField(max_length=250, blank=True, null=True)
+    descripcion_otro = models.CharField(max_length=250, blank=True, null=True)
     autor_principal = models.CharField(max_length=45, blank=True, null=True)
     autor_principal_nombre = models.CharField(max_length=45, blank=True, null=True)
     coautores = models.CharField(max_length=45, blank=True, null=True)
@@ -40,17 +41,29 @@ class Area(models.Model):
         managed = True
         db_table = 'area'      
 
-class Autor(models.Model):
-    idautor = models.AutoField(primary_key=True)
-    idobjeto = models.ForeignKey('objeto', models.DO_NOTHING, db_column='idobjeto')
-    username = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='username')
+class AreaList(models.Model):
+    idarea = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=200)
+    activo = models.BooleanField(default=True)
      
     def __str__(self):
-        return self.idautor
+        return self.idarea
     
     class Meta:
         managed = True
-        db_table = 'autor'           
+        db_table = 'arealist'  
+
+class DepartamentoList(models.Model):
+    iddepartamento = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=200)
+    activo = models.BooleanField(default=True)
+     
+    def __str__(self):
+        return self.iddepartamento
+    
+    class Meta:
+        managed = True
+        db_table = 'departamentolist'           
 
 class Comentario(models.Model):
     idcomentario = models.AutoField(primary_key=True)
@@ -175,6 +188,7 @@ class Usuario(AbstractBaseUser):
     semestre = models.IntegerField('Semestre', blank = True, null = True)
     rol = models.CharField('Rol', max_length=40)
     objects = UsuarioManager()
+    nobjetos = models.IntegerField('Numero de objetos', blank=True, null=True, default=0)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email','nombres', 'apellidos', 'telefono', 'rfc']

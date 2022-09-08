@@ -45,21 +45,22 @@
                         <tr>
                         <th scope="col">Nombre</th>
                         <th scope="col">Fecha</th>
-                        <th scope="col">Estatus</th>
                         <th scope="col">Calificación</th>
+                        <th scope="col">Estatus</th>
                         <th scope="col">Detalles</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- INICIO FOR -->
+                        {% for o in objetos %}
                         <tr>
-                            <td>#Nombre del Objeto#</td>
-                            <td>#Fecha#</td>
-                            <td>#Calificación#/10</td>
-                            <td><button type="button" class="btn btn-info" style="pointer-events: none;">#ESTATUS#</button></td>
+                            <td>{{o.nombre}}</td>
+                            <td>{{o.fecha}}</td>
+                            <td>{{o.calificacionfinal}}/10</td>
+                            <td><button type="button" class="btn btn-info" style="pointer-events: none;">{{o.estatus}}</button></td>
                             <td>
                                 <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal_InfoObj"
-                                    onclick="modal_InfoObjContent('#Nombre Objeto#', '#Descrip Obj1#', '#Autor Obj1#', '#fecha Obj1#', '#carrera Obj1#', '#descargas Obj1#', '#ID Obj1#')">
+                                    onclick="modal_InfoObjContent('{{o.nombre}}', '{{o.descripcion}}', '{{o.autor_principal_nombre}}', '{{o.fecha}}', '#carrera Obj1#', '{{o.descargas}}', '{{o.idobjeto}}')">
                                     <i class="fas fa-info-circle mr-2"></i>Ver Detalles
                                 </button>
                                 <!-- 
@@ -68,7 +69,7 @@
                                 -->
                             </td>
                         </tr>
-
+                        {% endfor %}
                         <!-- FIN FOR -->
                         
                     </tbody>
@@ -152,7 +153,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="nvobj_Nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                <input type="text" class="form-control" id="nombre" name="nombre" maxlength="180" required>
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="nvobj_Archivo">Archivo</label>
@@ -164,24 +165,28 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="nvobj_Descrip">Descripción en otro idioma (Opcional)</label>
-                                <textarea class="form-control" id="descripcion_alterna" name="descripcion_alterna" rows="3" placeholder="Descripción en Ingles, Frances, Dialecto, etc..."></textarea>
+                                <textarea class="form-control" id="descripcion_otro" name="descripcion_otro" rows="3" placeholder="Descripción en Ingles, Frances, Dialecto, etc..."></textarea>
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="nvobj_Carrera">Area(s)</label> <br>
                                 <!-- INICIO FOR -->
+                                {% for a in areas %}
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="#AREA#" name="#AREA#" value="#AREA#">
-                                    <label class="form-check-label" for="#AREA#">#AREA#</label>
+                                    <input class="form-check-input" type="checkbox" id="{{a.nombre}}" name="{{a.nombre}}" value="{{a.nombre}}">
+                                    <label class="form-check-label" for="{{a.nombre}}">{{a.nombre}}</label>
                                 </div>
+                                {% endfor %}
                                 <!-- FIN FOR -->
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="nvobj_Departamento">departamento(s)</label> <br>
+                                <label for="nvobj_Departamento">Departamento(s)</label> <br>
                                 <!-- INICIO FOR -->
+                                {% for d in departamentos %}
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="#DEPARTAMENTO#" name="#DEPARTAMENTO#" value="#DEPARTAMENTO#">
-                                    <label class="form-check-label" for="#DEPARTAMENTO#">#DEPARTAMENTO#</label>
+                                    <input class="form-check-input" type="checkbox" id="{{d.nombre}}" name="{{d.nombre}}" value="{{d.nombre}}">
+                                    <label class="form-check-label" for="{{d.nombre}}">{{d.nombre}}</label>
                                 </div>
+                                {% endfor %}
                                 <!-- FIN FOR -->
                             </div>
                             <div class="form-group col-md-12">

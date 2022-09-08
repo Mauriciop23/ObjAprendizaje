@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from Objetivos.models import Objeto, Usuario, Area
+from Objetivos.models import Objeto, Usuario, Area, AreaList, DepartamentoList
 from django.http.response import HttpResponse, HttpResponseRedirect
 from Objetivos.forms import ObjetoForm, AreaForm
 import datetime
@@ -96,7 +96,21 @@ def dashboardGeneral(request):
             'nombre_usuario': request.user.nombres,
             'activo_general': "active"
         }
-        if request.method == "POST":
+        return render(request, 'dashboard_general.html', context)
+
+@login_required
+def dashboardContenido(request):
+    objetos = Objeto.objects.filter(autor_principal = request.user.username)
+    areas = AreaList.objects.filter(activo = True)
+    departamentos = DepartamentoList.objects.filter(activo = True)
+    context = {
+        'nombre_usuario': request.user.nombres,
+        'activo_contenido': "active",
+        'objetos': objetos,
+        'areas': areas,
+        'departamentos': departamentos
+    }
+    if request.method == "POST":
             if "addobjeto" in request.POST:
                 print(request.POST.get('coautores',''))
                 objeto = request.POST.copy()
@@ -113,50 +127,38 @@ def dashboardGeneral(request):
                     objeto2 = Objeto.objects.get(pk=idobjeto)
                     documentos = ObjetoForm(objeto, request.FILES, instance=objeto2)
                     documentos.save()
-                    if str(request.POST.get('area1','')) == 'area1':
-                        Area.objects.create(idobjeto=idobjeto, nombre='area1')
-                    if str(request.POST.get('area2','')) == 'area2':
-                        Area.objects.create(idobjeto=idobjeto, nombre='area2')
-                    if str(request.POST.get('area3','')) == 'area3':
-                        Area.objects.create(idobjeto=idobjeto, nombre='area3')
-                    if str(request.POST.get('area4','')) == 'area4':
-                        Area.objects.create(idobjeto=idobjeto, nombre='area4')
+                    if str(request.POST.get('Ciencias Físico Matemáticas','')) == 'Ciencias Físico Matemáticas':
+                        Area.objects.create(idobjeto=idobjeto, nombre='Ciencias Físico Matemáticas')
+                    if str(request.POST.get('Económico Administrativo','')) == 'Económico Administrativo':
+                        Area.objects.create(idobjeto=idobjeto, nombre='Económico Administrativo')
+                    if str(request.POST.get('Educación','')) == 'Educación':
+                        Area.objects.create(idobjeto=idobjeto, nombre='Educación')
+                    if str(request.POST.get('Ingenierías','')) == 'Ingenierías':
+                        Area.objects.create(idobjeto=idobjeto, nombre='Ingenierías')
                     return HttpResponseRedirect('/dashboard/')
                 else:
                     print("Invalido")
-        return render(request, 'dashboard_general.html', context)
-
-@login_required
-def dashboardContenido(request):
-    context = {
-        'nombre_usuario': request.user.nombres,
-        'activo_contenido': "active"
-    }
     return render(request, 'dashboard_contenido.html', context)
 
 @login_required
 def dashboardAjustes(request):
+    areas = AreaList.objects.filter(activo = True)
+    departamentos = DepartamentoList.objects.filter(activo = True)
     context = {
         'nombre_usuario': request.user.nombres,
-        'activo_Objeto': "active"
+        'activo_Objeto': "active",
+        'areas': areas,
+        'departamentos': departamentos
     }
     return render(request, 'dashboard_ajustes.html', context)
 
 @login_required
 def dashboardProfesores(request):
-    context = {
-        'nombre_usuario': request.user.nombres,
-        'activo_profesores': "active"
-    }
-    return render(request, 'dashboard_profesores.html', context)
-
-@login_required
-def dashboardAdmin(request):
     if request.user.rol == 'alumno': 
         return HttpResponseRedirect("/home/")
     elif request.user.rol == 'profesor':  
         return HttpResponseRedirect("/dashboard/")    
-    else:    
+    else: 
         exito = False
         if request.method == "POST" and "addprofesor" in request.POST:
             usuario = request.POST.get('nvprof_Username','')
@@ -216,10 +218,31 @@ def dashboardAdmin(request):
                 usm.save()
                 messages.success(request, "El usuario se registró con exito")
                 exito = True
+        profesores = Usuario.objects.filter(rol = 'profesor')
+        departamentos = DepartamentoList.objects.filter(activo = True)
+        context = {
+            'nombre_usuario': request.user.nombres,
+            'activo_profesores': "active",
+            'exito': exito,
+            'profesores': profesores,
+            'departamentos': departamentos
+        }
+        return render(request, 'dashboard_profesores.html', context)
+
+@login_required
+def dashboardAdmin(request):
+    if request.user.rol == 'alumno': 
+        return HttpResponseRedirect("/home/")
+    elif request.user.rol == 'profesor':  
+        return HttpResponseRedirect("/dashboard/")    
+    else:    
+        
         context = {
             'nombre_usuario': request.user.nombres,
             'activo_general': "active",
-            'exito': exito
+            'contador_objetos': Objeto.objects.filter(estatus = 'activo').count(),
+            'contador_alumnos': Usuario.objects.filter(rol = 'alumno').count(),
+            'contador_maestros': Usuario.objects.filter(rol = 'profesor').count()
         }      
         return render(request, 'dashboard_admin.html', context)
 

@@ -6,19 +6,7 @@
 
                     <!-- Page Heading -->
                     <div class="container">
-                        {% for message in messages %}
-                            {% if exito %}
-                            <div class="alert alert-success">
-                                <a class="close" href="#" data-dismiss="alert">×</a>
-                                    {{ message }}
-                            </div>
-                            {% else %}
-                            <div class="alert alert-danger">
-                                <a class="close" href="#" data-dismiss="alert">×</a>
-                                    {{ message }}
-                            </div>
-                            {% endif %}
-                        {% endfor %}
+                        
                         <div class="row">
                             <div class="col-12 col-md-8 d-sm-flex align-items-center justify-content-between mb-4">
                                 <h1 class="h3 mb-0 text-gray-800">Dashboard Administrativo</h1>
@@ -49,16 +37,16 @@
                                 <div class="card-body">
                                     <div class="d-flex justify-content-around">
                                         <div class="text-center">
-                                            <span class="display-3 text-primary">#</span>
+                                            <span class="display-3 text-primary">{{contador_objetos}}</span>
                                             <h6 class="m-0 text-primary ">Objetos</h6>
                                         </div>
                                         <div class="text-center" >
                                             
-                                            <span class="display-3 text-primary">#</span>
+                                            <span class="display-3 text-primary">{{contador_alumnos}}</span>
                                             <h6 class="m-0 text-primary">Alumnos</h6>
                                         </div>
                                         <div class="text-center" >
-                                            <span class="display-3 text-primary">#</span>
+                                            <span class="display-3 text-primary">{{contador_maestros}}</span>
                                             <h6 class="m-0 text-primary">Profesores</h6>
                                         </div>
                                     </div>

@@ -55,10 +55,12 @@
               </div>
               <div class="card-body">
                 <!-- INICIO FOR -->
-                <span class="text-primary">#Áreas#</span>
+                {% for a in areas %}
+                <span class="text-primary">{{a.nombre}}</span>
                 <button type="button" class="btn btn-outline-danger ml-5" data-toggle="modal" data-target="#deleteIdiomaModal" onclick="modal_DeleteContent('area')">
                   <i class="fas fa-fw fa-trash"></i>
                 </button>
+                {% endfor %}
                 <!-- FIN FOR  -->
               </div>
             </div>
@@ -75,10 +77,12 @@
               </div>
               <div class="card-body">
                 <!-- INICIO FOR -->
-                <span class="text-primary">#Departamentos#</span>
+                {% for d in departamentos %}
+                <span class="text-primary">{{d.nombre}}</span>
                 <button type="button" class="btn btn-outline-danger ml-5" data-toggle="modal" data-target="#deleteIdiomaModal" onclick="modal_DeleteContent('departamento')">
                   <i class="fas fa-fw fa-trash"></i>
                 </button>
+                {% endfor %}
                 <!-- FIN FOR  -->
               </div>
             </div>
