@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 import random
@@ -7,6 +8,12 @@ def objeto_directory_path(instance, filename):
     numero = str(''.join(random.choice(_str) for i in range(5))) 
     extension = filename.rsplit('.', 1)[1]
     return f'objetos/{instance.idobjeto}_{numero}{instance.nombre}.{extension}'
+
+def imagen_directory_path(instance, filename):
+    _str = '1234567890'
+    numero = str(''.join(random.choice(_str) for i in range(5))) 
+    extension = filename.rsplit('.', 1)[1]
+    return f'fotos/{instance.username}_{numero}.{extension}'
 
 class Objeto(models.Model):
     idobjeto = models.AutoField(primary_key=True)
@@ -21,6 +28,8 @@ class Objeto(models.Model):
     fecha = models.DateField(blank=True, null=True)
     calificacionfinal = models.FloatField(blank=True, null=True)
     descargas = models.IntegerField(blank=True, null=True) 
+    imagen_autor = models.ImageField('Foto de perfil', blank=True, default=f'fotos/DefaultUser.png')
+
      
     def __str__(self):
         return self.idobjeto
@@ -189,6 +198,7 @@ class Usuario(AbstractBaseUser):
     rol = models.CharField('Rol', max_length=40)
     objects = UsuarioManager()
     nobjetos = models.IntegerField('Numero de objetos', blank=True, null=True, default=0)
+    imagen = models.ImageField('Foto de perfil', upload_to=imagen_directory_path, max_length=240, blank=True, default=f'fotos/DefaultUser.png')
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email','nombres', 'apellidos', 'telefono', 'rfc']

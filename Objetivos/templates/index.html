@@ -50,33 +50,17 @@
             </div>
 
             <!-- Nav Item - Areas -->
+            {% for a in areas %}
+            <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-book mr-2"></i>
+                    <span class="">{{a.nombre}}</span>
+                </a>
+            </li>
+            </form>
+            {% endfor %}
             
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-book mr-2"></i>
-                    <span class="">Educación</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-book mr-2"></i>
-                    <span class="">Ingenierías</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-book mr-2"></i>
-                    <span class="">Físico Matemáticas</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-book mr-2"></i>
-                    <span class="">Económico Administrativo</span>
-                </a>
-            </li>
 <!-- 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSix"
@@ -230,7 +214,7 @@
                                                         <img class="rounded-circle" src="{% static 'img/image5V2.png' %}" alt="..."> <!-- Profile Photo -->
 
                                                         <div class="ml-3">
-                                                            <h6 class="mb-0 font-weight-bold text-gray-800">#NOMBRE DEL AUTOR#</h6>
+                                                            <h6 class="mb-0 font-weight-bold text-gray-800">{{o.autor_principal_nombre}}</h6>
                                                             <p class="text-xs mb-0 font-weight-bold text-gray-800">{{o.fecha}}</p>
                                                         </div>
                                                     </div>
@@ -239,8 +223,10 @@
                                                 <div class="col-4 text-center">
                                                     <h6 class="h6 mb-0 font-weight-bold text-gray-800">Area</h6>
                                                     <!-- INICIO FOR AREAS -->
-                                                    <p class="text-xs mb-0 font-weight-bold text-gray-800">#Areas#</p>
+                                                    {% for a in areas %}
+                                                    <p class="text-xs mb-0 font-weight-bold text-gray-800">{{a.nombre}}</p>
                                                     <!-- FIN FOR AREAS -->
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                         </div>

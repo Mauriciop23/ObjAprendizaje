@@ -18,6 +18,7 @@ urlpatterns = [
     path('dashboard/ajustes', Objetivos.views.dashboardAjustes, name="dashboardAjustes"),
     path('dashboard/profesores', Objetivos.views.dashboardProfesores, name="dashboardProfesores"),
     path('objeto/', Objetivos.views.objeto, name="objeto"),
+    path('area/', Objetivos.views.areas, name="area"),
     path("accounts/", include("django.contrib.auth.urls")),
 ]
 

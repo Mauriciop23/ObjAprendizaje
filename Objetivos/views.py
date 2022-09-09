@@ -6,22 +6,53 @@ from django.http.response import HttpResponse, HttpResponseRedirect
 from Objetivos.forms import ObjetoForm, AreaForm
 import datetime
 from django.contrib import messages
+from itertools import chain
 
 @login_required
 def home(request):
     if request.user.rol == 'alumno': profesor = False
     else: profesor = True
     objetos = Objeto.objects.filter(estatus = 'activo')
+    areas = AreaList.objects.filter(activo = True)
     context = {
         'nombre_usuario': request.user.nombres,
         'apellidos_usuario': request.user.apellidos,
         'profesor': profesor,
-        'objetos': objetos
+        'objetos': objetos,
+        'areas': areas
     }
-    if request.method == "POST" and "detalles" in request.POST:
-        request.session['idobjeto'] = request.POST.get('detalles','')
-        return HttpResponseRedirect("/objeto/") 
+    if request.method == "POST":
+            if "detalles" in request.POST:    
+                request.session['idobjeto'] = request.POST.get('detalles','')
+                return HttpResponseRedirect("/objeto/") 
+            if "area" in request.POST:
+                request.session['nombre'] = request.POST.get('area', '')
+                return HttpResponseRedirect("/area/")    
     return render(request, 'index.html', context)
+
+@login_required
+def areas(request):
+    if request.session.has_key('nombre'):
+        nombre = request.session.get('nombre')
+        if request.user.rol == 'alumno': profesor = False
+        else: profesor = True
+        consulta = Area.objects.filter(nombre = nombre)
+        objetos = Objeto.objects.get(idobjeto = 0)
+        for c in consulta:
+            aux2 = Objeto.objects.get(idobjeto = c.idobjeto)
+            objetos = chain(objetos, aux2)
+        areas = AreaList.objects.filter(activo = True)
+        context = {
+            'nombre_usuario': request.user.nombres,
+            'apellidos_usuario': request.user.apellidos,
+            'profesor': profesor,
+            'objetos': objetos,
+            'areas': areas
+        }
+        if request.method == "POST" and "detalles" in request.POST:
+            request.session['idobjeto'] = request.POST.get('detalles','')
+            return HttpResponseRedirect("/objeto/") 
+        return render(request, 'index.html', context)
 
 def registro(request):
     if request.method == "POST" and "addalumno" in request.POST:
@@ -116,6 +147,7 @@ def dashboardContenido(request):
                 objeto = request.POST.copy()
                 objeto['autor_principal']=request.user.username
                 objeto['autor_principal_nombre']=str(request.user.nombres) + ' ' + str(request.user.apellidos)
+                objeto['imagen_autor']=str(request.user.imagen)
                 objeto['estatus']='activo'
                 objeto['fecha']=datetime.datetime.now()
                 objeto['calificacionfinal']=10
