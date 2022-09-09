@@ -15,6 +15,7 @@ def home(request):
     objetos = Objeto.objects.filter(estatus = 'activo')
     areas = AreaList.objects.filter(activo = True)
     context = {
+        'user': request.user,
         'nombre_usuario': request.user.nombres,
         'apellidos_usuario': request.user.apellidos,
         'profesor': profesor,
@@ -37,21 +38,26 @@ def areas(request):
         if request.user.rol == 'alumno': profesor = False
         else: profesor = True
         consulta = Area.objects.filter(nombre = nombre)
-        objetos = Objeto.objects.get(idobjeto = 0)
+        objetos = Objeto.objects.filter(idobjeto = 0)
         for c in consulta:
-            aux2 = Objeto.objects.get(idobjeto = c.idobjeto)
+            aux2 = Objeto.objects.filter(idobjeto = c.idobjeto)
             objetos = chain(objetos, aux2)
         areas = AreaList.objects.filter(activo = True)
         context = {
+            'user': request.user,
             'nombre_usuario': request.user.nombres,
             'apellidos_usuario': request.user.apellidos,
             'profesor': profesor,
             'objetos': objetos,
             'areas': areas
         }
-        if request.method == "POST" and "detalles" in request.POST:
-            request.session['idobjeto'] = request.POST.get('detalles','')
-            return HttpResponseRedirect("/objeto/") 
+        if request.method == "POST":
+            if "detalles" in request.POST:    
+                request.session['idobjeto'] = request.POST.get('detalles','')
+                return HttpResponseRedirect("/objeto/") 
+            if "area" in request.POST:
+                request.session['nombre'] = request.POST.get('area', '')
+                return HttpResponseRedirect("/area/")     
         return render(request, 'index.html', context)
 
 def registro(request):
@@ -122,11 +128,31 @@ def dashboardGeneral(request):
         return HttpResponseRedirect("/home/")
     elif request.user.rol == 'admin':  
         return HttpResponseRedirect("/dashboard_admin/")
-    else:       
+    else:
+        departamentos = DepartamentoList.objects.filter(activo = True)       
         context = {
+            'departamentos': departamentos,
+            'user': request.user,
             'nombre_usuario': request.user.nombres,
             'activo_general': "active"
         }
+        if request.method == "POST":
+            if "edit-usuario" in request.POST:
+                username = request.POST.get('edit-usuario','')
+                usm = Usuario.objects.get(username = username)
+                if request.POST.get('editPerfil_Contrseña', '') != "":
+                    usm.set_password(request.POST.get('editPerfil_Contrseña', ''))
+                if request.FILES.get('editPerfil_Foto', '') != "":
+                    usm.imagen(request.FILES.get('editPerfil_Foto', ''))    
+                email = str(request.POST.get('editPerfil_Correo', ''))
+                usm.email(email)
+                usm.nombres(request.POST.get('editPerfil_Nombre', ''))
+                usm.apellidos(request.POST.get('editPerfil_Apellidos', ''))
+                usm.telefono(request.POST.get('editPerfil_Telefono', ''))
+                usm.institucion(request.POST.get('editPerfil_Institucion', ''))
+                usm.rfc(request.POST.get('editPerfil_RFC', ''))
+                usm.departamento(request.POST.get('editPerfil_Departamento', ''))
+                usm.save()    
         return render(request, 'dashboard_general.html', context)
 
 @login_required
@@ -135,6 +161,7 @@ def dashboardContenido(request):
     areas = AreaList.objects.filter(activo = True)
     departamentos = DepartamentoList.objects.filter(activo = True)
     context = {
+        'user': request.user,
         'nombre_usuario': request.user.nombres,
         'activo_contenido': "active",
         'objetos': objetos,
@@ -177,6 +204,7 @@ def dashboardAjustes(request):
     areas = AreaList.objects.filter(activo = True)
     departamentos = DepartamentoList.objects.filter(activo = True)
     context = {
+        'user': request.user,
         'nombre_usuario': request.user.nombres,
         'activo_Objeto': "active",
         'areas': areas,
@@ -253,6 +281,7 @@ def dashboardProfesores(request):
         profesores = Usuario.objects.filter(rol = 'profesor')
         departamentos = DepartamentoList.objects.filter(activo = True)
         context = {
+            'user': request.user,
             'nombre_usuario': request.user.nombres,
             'activo_profesores': "active",
             'exito': exito,
@@ -270,6 +299,7 @@ def dashboardAdmin(request):
     else:    
         
         context = {
+            'user': request.user,
             'nombre_usuario': request.user.nombres,
             'activo_general': "active",
             'contador_objetos': Objeto.objects.filter(estatus = 'activo').count(),
@@ -287,6 +317,7 @@ def objeto(request):
         consulta = Objeto.objects.get(idobjeto = idobjeto)
         areas = Area.objects.filter(idobjeto = idobjeto)
         context = {
+            'user': request.user,
             'nombre_usuario': request.user.nombres,
             'apellidos_usuario': request.user.apellidos,
             'profesor': profesor,

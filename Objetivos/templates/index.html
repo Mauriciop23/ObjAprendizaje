@@ -53,10 +53,10 @@
             {% for a in areas %}
             <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <button class="nav-link" type="submit" name="area" id="area" value="{{a.nombre}}">
                     <i class="fas fa-book mr-2"></i>
                     <span class="">{{a.nombre}}</span>
-                </a>
+                </button>
             </li>
             </form>
             {% endfor %}

@@ -239,7 +239,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title text-primary" id="modal_InfoPerfilLabel">#USERNAME#</h5>
+                            <h5 class="modal-title text-primary" id="modal_InfoPerfilLabel">{{user.username}}</h5>
                             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
@@ -249,43 +249,48 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
                                             <label for="editPerfil_Foto">Foto de Perfil</label>
-                                            <input type="file" class="form-control" id="editPerfil_Foto" name="editPerfil_Foto" required>
+                                            <input type="file" class="form-control" id="editPerfil_Foto" name="editPerfil_Foto">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="editPerfil_Nombre">Nombre</label>
-                                            <input type="text" class="form-control" id="editPerfil_Nombre" name="editPerfil_Nombre" value="#NOMBRE#" required>
+                                            <input type="text" class="form-control" id="editPerfil_Nombre" name="editPerfil_Nombre" value="{{user.nombres}}" required>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="editPerfil_Apellidos">Apellidos</label>
-                                            <input type="text" class="form-control" id="editPerfil_Apellidos" name="editPerfil_Apellidos" value="#APELLIDOS#" required>
+                                            <input type="text" class="form-control" id="editPerfil_Apellidos" name="editPerfil_Apellidos" value="{{user.apellidos}}" required>
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="editPerfil_Correo">Correo</label>
-                                            <input type="email" class="form-control" id="editPerfil_Correo" name="editPerfil_Correo" value="#CORREO#" required>
+                                            <input type="email" class="form-control" id="editPerfil_Correo" name="editPerfil_Correo" value="{{user.email}}" required>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="editPerfil_Telefono">Teléfono</label>
-                                            <input type="text" class="form-control" id="editPerfil_Telefono" name="editPerfil_Telefono" value="#TELEFONO#" required>
+                                            <input type="text" class="form-control" id="editPerfil_Telefono" name="editPerfil_Telefono" value="{{user.telefono}}" required>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="editPerfil_RFC">RFC</label>
-                                            <input type="text" class="form-control" id="editPerfil_RFC" name="editPerfil_RFC" value="#RFC#" required>
+                                            <input type="text" class="form-control" id="editPerfil_RFC" name="editPerfil_RFC" value="{{user.rfc}}" required>
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="editPerfil_Institucion">Institución</label>
-                                            <input type="text" class="form-control" id="editPerfil_Institucion" name="editPerfil_Institucion" value="#INSTITUCIÓN#" required>
+                                            <input type="text" class="form-control" id="editPerfil_Institucion" name="editPerfil_Institucion" value="{{user.institucion}}" required>
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="editPerfil_Departamento">Departamento</label>
                                             <select class="form-control" id="editPerfil_Departamento" name="editPerfil_Departamento">
-                                              <option value="#DEPARTAMENTO#">#DEPARTAMENTO#</option>
-
+                                              {% for d in departamentos %}  
+                                              {% if user.departamento == d.nombre %}
+                                              <option value="{{d.nombre}}" selected>{{d.nombre}}</option>
+                                              {% else %}
+                                              <option value="{{d.nombre}}">{{d.nombre}}</option>
+                                              {% endif %}
+                                              {% endfor %}
                                             </select>
                                         </div>
                                         <hr>
                                         <div class="form-group col-md-12">
                                             <label for="editPerfil_Contrseña">Contraseña</label>
-                                            <input type="text" class="form-control" id="editPerfil_Contrseña" name="editPerfil_Contrseña" value="#CONTRASEÑA#" required>
+                                            <input type="password" class="form-control" id="editPerfil_Contrseña" name="editPerfil_Contrseña" placeholder="Solo si la deseas modificar">
                                         </div>
                                     </div>
                                 
@@ -295,12 +300,10 @@
                                     <i class="fas fa-ban "></i>
                                     Cancelar
                                 </button>
-                                <form action="">
-                                    <button type="submit" class="btn btn-success" name="addprofesor" value="addprofesor">
+                                    <button type="submit" class="btn btn-success" name="edit-usuario" value="{{user.username}}">
                                         <i class="fas fa-check mr-2"></i>
                                         Actualizar
                                     </button>
-                                </form>
                             </div>
                         </form>
                     </div>
