@@ -14,4 +14,4 @@ class AreaForm(forms.ModelForm):
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model = Usuario
-        exclude = ('username', 'password', 'imagen',)
+        exclude = ('username', 'password', 'rol',)

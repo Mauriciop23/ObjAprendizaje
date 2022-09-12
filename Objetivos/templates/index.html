@@ -210,22 +210,26 @@
                                                 {{o.nombre}}</div>
                                             <div class="row my-3">
                                                 <div class="col" >
+                                                    {% for u in usuarios %}
+                                                    {% if u.username|stringformat:'s' == o.autor_principal|stringformat:'s' %}
                                                     <div class="d-flex align-items-center">
-                                                        <img class="rounded-circle" src="{% static 'img/image5V2.png' %}" alt="..."> <!-- Profile Photo -->
-
+                                                        <img class="rounded-circle" src="../media/{{u.imagen}}" alt="..." width="50px" height="50px"> <!-- Profile Photo -->
                                                         <div class="ml-3">
-                                                            <h6 class="mb-0 font-weight-bold text-gray-800">{{o.autor_principal_nombre}}</h6>
+                                                            <h6 class="mb-0 font-weight-bold text-gray-800">{{u.nombres}} {{u.apellidos}}</h6>
                                                             <p class="text-xs mb-0 font-weight-bold text-gray-800">{{o.fecha}}</p>
                                                         </div>
                                                     </div>
-                                    
+                                                    {% endif %}
+                                                    {% endfor %}
                                                 </div>
                                                 <div class="col-4 text-center">
                                                     <h6 class="h6 mb-0 font-weight-bold text-gray-800">Area</h6>
                                                     <!-- INICIO FOR AREAS -->
-                                                    {% for a in areas %}
+                                                    {% for a in areasxobjetos %}
+                                                    {% if a.idobjeto|stringformat:'s' == o.idobjeto|stringformat:'s' %}
                                                     <p class="text-xs mb-0 font-weight-bold text-gray-800">{{a.nombre}}</p>
                                                     <!-- FIN FOR AREAS -->
+                                                    {% endif %}
                                                     {% endfor %}
                                                 </div>
                                             </div>

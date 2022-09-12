@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from Objetivos.models import Objeto, Usuario, Area, AreaList, DepartamentoList
 from django.http.response import HttpResponse, HttpResponseRedirect
-from Objetivos.forms import ObjetoForm, AreaForm
+from Objetivos.forms import ObjetoForm, AreaForm, UsuarioForm
 import datetime
 from django.contrib import messages
 from itertools import chain
@@ -14,13 +14,17 @@ def home(request):
     else: profesor = True
     objetos = Objeto.objects.filter(estatus = 'activo')
     areas = AreaList.objects.filter(activo = True)
+    areasxobjetos = Area.objects.all()
+    usuarios = Usuario.objects.all()
     context = {
         'user': request.user,
         'nombre_usuario': request.user.nombres,
         'apellidos_usuario': request.user.apellidos,
         'profesor': profesor,
         'objetos': objetos,
-        'areas': areas
+        'areas': areas,
+        'areasxobjetos': areasxobjetos,
+        'usuarios': usuarios
     }
     if request.method == "POST":
             if "detalles" in request.POST:    
@@ -139,20 +143,22 @@ def dashboardGeneral(request):
         if request.method == "POST":
             if "edit-usuario" in request.POST:
                 username = request.POST.get('edit-usuario','')
-                usm = Usuario.objects.get(username = username)
-                if request.POST.get('editPerfil_Contrseña', '') != "":
-                    usm.set_password(request.POST.get('editPerfil_Contrseña', ''))
-                if request.FILES.get('editPerfil_Foto', '') != "":
-                    usm.imagen(request.FILES.get('editPerfil_Foto', ''))    
-                email = str(request.POST.get('editPerfil_Correo', ''))
-                usm.email(email)
-                usm.nombres(request.POST.get('editPerfil_Nombre', ''))
-                usm.apellidos(request.POST.get('editPerfil_Apellidos', ''))
-                usm.telefono(request.POST.get('editPerfil_Telefono', ''))
-                usm.institucion(request.POST.get('editPerfil_Institucion', ''))
-                usm.rfc(request.POST.get('editPerfil_RFC', ''))
-                usm.departamento(request.POST.get('editPerfil_Departamento', ''))
-                usm.save()    
+                usm = request.POST.copy()
+                usm2 = Usuario.objects.get(username = username)
+                actualizacion = UsuarioForm(usm, request.FILES, instance=usm2)
+                if actualizacion.is_valid():
+                    actualizacion.save()
+                    if request.POST.get('password','') != "":
+                        usm = Usuario.objects.get(username = username)
+                        usm.set_password(request.POST.get('password',''))
+                        usm.save()
+                        return HttpResponseRedirect('/')
+                    else:    
+                        return HttpResponseRedirect('/dashboard/')
+                else: 
+                    print (actualizacion.errors)
+                    print("Invalido")    
+                    
         return render(request, 'dashboard_general.html', context)
 
 @login_required
@@ -160,20 +166,21 @@ def dashboardContenido(request):
     objetos = Objeto.objects.filter(autor_principal = request.user.username)
     areas = AreaList.objects.filter(activo = True)
     departamentos = DepartamentoList.objects.filter(activo = True)
+    usuarios = Usuario.objects.all()
     context = {
         'user': request.user,
         'nombre_usuario': request.user.nombres,
         'activo_contenido': "active",
         'objetos': objetos,
         'areas': areas,
-        'departamentos': departamentos
+        'departamentos': departamentos,
+        'usuarios': usuarios
     }
     if request.method == "POST":
             if "addobjeto" in request.POST:
                 print(request.POST.get('coautores',''))
                 objeto = request.POST.copy()
                 objeto['autor_principal']=request.user.username
-                objeto['autor_principal_nombre']=str(request.user.nombres) + ' ' + str(request.user.apellidos)
                 objeto['imagen_autor']=str(request.user.imagen)
                 objeto['estatus']='activo'
                 objeto['fecha']=datetime.datetime.now()
@@ -194,9 +201,26 @@ def dashboardContenido(request):
                         Area.objects.create(idobjeto=idobjeto, nombre='Educación')
                     if str(request.POST.get('Ingenierías','')) == 'Ingenierías':
                         Area.objects.create(idobjeto=idobjeto, nombre='Ingenierías')
-                    return HttpResponseRedirect('/dashboard/')
+                    return HttpResponseRedirect('/dashboard/mi_contenido')
                 else:
                     print("Invalido")
+            if "edit-usuario" in request.POST:
+                username = request.POST.get('edit-usuario','')
+                usm = request.POST.copy()
+                usm2 = Usuario.objects.get(username = username)
+                actualizacion = UsuarioForm(usm, request.FILES, instance=usm2)
+                if actualizacion.is_valid():
+                    actualizacion.save()
+                    if request.POST.get('password','') != "":
+                        usm = Usuario.objects.get(username = username)
+                        usm.set_password(request.POST.get('password',''))
+                        usm.save()
+                        return HttpResponseRedirect('/')
+                    else:    
+                        return HttpResponseRedirect('/dashboard/mi_contenido')
+                else: 
+                    print (actualizacion.errors)
+                    print("Invalido")            
     return render(request, 'dashboard_contenido.html', context)
 
 @login_required
@@ -210,6 +234,24 @@ def dashboardAjustes(request):
         'areas': areas,
         'departamentos': departamentos
     }
+    if request.method == "POST":
+        if "edit-usuario" in request.POST:
+            username = request.POST.get('edit-usuario','')
+            usm = request.POST.copy()
+            usm2 = Usuario.objects.get(username = username)
+            actualizacion = UsuarioForm(usm, request.FILES, instance=usm2)
+            if actualizacion.is_valid():
+                actualizacion.save()
+                if request.POST.get('password','') != "":
+                    usm = Usuario.objects.get(username = username)
+                    usm.set_password(request.POST.get('password',''))
+                    usm.save()
+                    return HttpResponseRedirect('/')
+                else:    
+                    return HttpResponseRedirect('/dashboard/ajustes')
+            else: 
+                print (actualizacion.errors)
+                print("Invalido")    
     return render(request, 'dashboard_ajustes.html', context)
 
 @login_required
@@ -220,64 +262,82 @@ def dashboardProfesores(request):
         return HttpResponseRedirect("/dashboard/")    
     else: 
         exito = False
-        if request.method == "POST" and "addprofesor" in request.POST:
-            usuario = request.POST.get('nvprof_Username','')
-            contra = request.POST.get('nvprof_Contrseña','')  
-            nombre = request.POST.get('nvprof_Nombre','')
-            apellido = request.POST.get('nvprof_Apellidos','')
-            correo = request.POST.get('nvprof_Correo','')   
-            institucion = request.POST.get('nvprof_Institucion','')
-            departamento = request.POST.get('nvprof_Departamento','')
-            rfc = request.POST.get('nvprof_RFC','')
-            telefono = request.POST.get('nvprof_Telefono','')
-            existecorreo = Usuario.objects.filter(email = correo ).exists()
-            existeusuario = Usuario.objects.filter(username = usuario ).exists()
-            if existecorreo==True or existeusuario==True:
-                if existecorreo and existeusuario:
-                    usm = Usuario.objects.get(username = usuario)
-                    state = getattr(usm, 'usuario_activo')
-                    if state == True:
-                        messages.error(request, "Ya existe un usuario con el correo y el nombre de usuario ingresados, el usuario no se registró")
-                    else:
-                        usm.set_password(contra)
-                        usm.username(usuario)
-                        usm.email(correo)
-                        usm.nombres(nombre)
-                        usm.apellidos(apellido)
-                        usm.usuario_activo = True
-                        usm.telefono(telefono)
-                        usm.institucion(institucion)
-                        usm.departamento(departamento)
-                        usm.rfc(rfc)
-                        usm.save()    
-                        messages.success(request, "El usuario se registró con exito")
-                        exito = True
-                if existecorreo and existeusuario==False:
-                    messages.error(request, "Ya existe un usuario con el correo ingresado, el usuario no se registró")
-                if existeusuario and existecorreo==False:
-                    usm = Usuario.objects.get(username = usuario)
-                    state = getattr(usm, 'usuario_activo')
-                    if state == True:
-                        messages.error(request, "Ya existe un usuario con el nombre de usuario ingresado, el usuario no se registró")
-                    else:
-                        usm.set_password(contra)
-                        usm.username(usuario)
-                        usm.email(correo)
-                        usm.nombres(nombre)
-                        usm.apellidos(apellido)
-                        usm.usuario_activo = True
-                        usm.telefono(telefono)
-                        usm.institucion(institucion)
-                        usm.departamento(departamento)
-                        usm.rfc(rfc)
-                        usm.save()   
-                        messages.success(request, "El usuario se registró con exito")
-                        exito = True
-            else:
-                usm = Usuario.objects.create_profesor_user(correo,usuario,nombre,apellido,contra,telefono,rfc,institucion,departamento)
-                usm.save()
-                messages.success(request, "El usuario se registró con exito")
-                exito = True
+        if request.method == "POST":
+            if "edit-usuario" in request.POST:
+                username = request.POST.get('edit-usuario','')
+                usm = request.POST.copy()
+                usm2 = Usuario.objects.get(username = username)
+                actualizacion = UsuarioForm(usm, request.FILES, instance=usm2)
+                if actualizacion.is_valid():
+                    actualizacion.save()
+                    if request.POST.get('password','') != "":
+                        usm = Usuario.objects.get(username = username)
+                        usm.set_password(request.POST.get('password',''))
+                        usm.save()
+                        return HttpResponseRedirect('/')
+                    else:    
+                        return HttpResponseRedirect('/dashboard/profesores')
+                else: 
+                    print (actualizacion.errors)
+                    print("Invalido")
+            if "addprofesor" in request.POST:
+                usuario = request.POST.get('nvprof_Username','')
+                contra = request.POST.get('nvprof_Contrseña','')  
+                nombre = request.POST.get('nvprof_Nombre','')
+                apellido = request.POST.get('nvprof_Apellidos','')
+                correo = request.POST.get('nvprof_Correo','')   
+                institucion = request.POST.get('nvprof_Institucion','')
+                departamento = request.POST.get('nvprof_Departamento','')
+                rfc = request.POST.get('nvprof_RFC','')
+                telefono = request.POST.get('nvprof_Telefono','')
+                existecorreo = Usuario.objects.filter(email = correo ).exists()
+                existeusuario = Usuario.objects.filter(username = usuario ).exists()
+                if existecorreo==True or existeusuario==True:
+                    if existecorreo and existeusuario:
+                        usm = Usuario.objects.get(username = usuario)
+                        state = getattr(usm, 'usuario_activo')
+                        if state == True:
+                            messages.error(request, "Ya existe un usuario con el correo y el nombre de usuario ingresados, el usuario no se registró")
+                        else:
+                            usm.set_password(contra)
+                            usm.username(usuario)
+                            usm.email(correo)
+                            usm.nombres(nombre)
+                            usm.apellidos(apellido)
+                            usm.usuario_activo = True
+                            usm.telefono(telefono)
+                            usm.institucion(institucion)
+                            usm.departamento(departamento)
+                            usm.rfc(rfc)
+                            usm.save()    
+                            messages.success(request, "El usuario se registró con exito")
+                            exito = True
+                    if existecorreo and existeusuario==False:
+                        messages.error(request, "Ya existe un usuario con el correo ingresado, el usuario no se registró")
+                    if existeusuario and existecorreo==False:
+                        usm = Usuario.objects.get(username = usuario)
+                        state = getattr(usm, 'usuario_activo')
+                        if state == True:
+                            messages.error(request, "Ya existe un usuario con el nombre de usuario ingresado, el usuario no se registró")
+                        else:
+                            usm.set_password(contra)
+                            usm.username(usuario)
+                            usm.email(correo)
+                            usm.nombres(nombre)
+                            usm.apellidos(apellido)
+                            usm.usuario_activo = True
+                            usm.telefono(telefono)
+                            usm.institucion(institucion)
+                            usm.departamento(departamento)
+                            usm.rfc(rfc)
+                            usm.save()   
+                            messages.success(request, "El usuario se registró con exito")
+                            exito = True
+                else:
+                    usm = Usuario.objects.create_profesor_user(correo,usuario,nombre,apellido,contra,telefono,rfc,institucion,departamento)
+                    usm.save()
+                    messages.success(request, "El usuario se registró con exito")
+                    exito = True
         profesores = Usuario.objects.filter(rol = 'profesor')
         departamentos = DepartamentoList.objects.filter(activo = True)
         context = {
@@ -297,7 +357,6 @@ def dashboardAdmin(request):
     elif request.user.rol == 'profesor':  
         return HttpResponseRedirect("/dashboard/")    
     else:    
-        
         context = {
             'user': request.user,
             'nombre_usuario': request.user.nombres,
@@ -305,7 +364,25 @@ def dashboardAdmin(request):
             'contador_objetos': Objeto.objects.filter(estatus = 'activo').count(),
             'contador_alumnos': Usuario.objects.filter(rol = 'alumno').count(),
             'contador_maestros': Usuario.objects.filter(rol = 'profesor').count()
-        }      
+        }
+        if request.method == "POST":
+            if "edit-usuario" in request.POST:
+                username = request.POST.get('edit-usuario','')
+                usm = request.POST.copy()
+                usm2 = Usuario.objects.get(username = username)
+                actualizacion = UsuarioForm(usm, request.FILES, instance=usm2)
+                if actualizacion.is_valid():
+                    actualizacion.save()
+                    if request.POST.get('password','') != "":
+                        usm = Usuario.objects.get(username = username)
+                        usm.set_password(request.POST.get('password',''))
+                        usm.save()
+                        return HttpResponseRedirect('/')
+                    else:    
+                        return HttpResponseRedirect('/dashboard_admin/')
+                else: 
+                    print (actualizacion.errors)
+                    print("Invalido")      
         return render(request, 'dashboard_admin.html', context)
 
 @login_required

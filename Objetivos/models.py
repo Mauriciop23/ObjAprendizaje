@@ -22,14 +22,11 @@ class Objeto(models.Model):
     descripcion = models.CharField(max_length=250, blank=True, null=True)
     descripcion_otro = models.CharField(max_length=250, blank=True, null=True)
     autor_principal = models.CharField(max_length=45, blank=True, null=True)
-    autor_principal_nombre = models.CharField(max_length=45, blank=True, null=True)
     coautores = models.CharField(max_length=45, blank=True, null=True)
     estatus = models.CharField(max_length=45)
     fecha = models.DateField(blank=True, null=True)
     calificacionfinal = models.FloatField(blank=True, null=True)
     descargas = models.IntegerField(blank=True, null=True) 
-    imagen_autor = models.ImageField('Foto de perfil', blank=True, default=f'fotos/DefaultUser.png')
-
      
     def __str__(self):
         return self.idobjeto
