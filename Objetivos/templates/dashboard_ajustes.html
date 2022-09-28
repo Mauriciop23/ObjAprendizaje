@@ -49,17 +49,17 @@
             <div class="card shadow">
               <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Áreas</h6>
-                <button type="button" class="btn btn-success ml-5" data-toggle="modal" data-target="#addAjusteModal" onclick="modal_AddContent('area')">
-                  <i class="fas fa-fw fa-plus"></i>
-                </button>
+                  <button type="button" class="btn btn-success ml-5" data-toggle="modal" data-target="#addAjusteModal" onclick="modal_AddContent('area')">
+                    <i class="fas fa-fw fa-plus"></i>
+                  </button>
               </div>
               <div class="card-body">
                 <!-- INICIO FOR -->
                 {% for a in areas %}
                 <span class="text-primary">{{a.nombre}}</span>
-                <button type="button" class="btn btn-outline-danger ml-5" data-toggle="modal" data-target="#deleteIdiomaModal" onclick="modal_DeleteContent('area')">
-                  <i class="fas fa-fw fa-trash"></i>
-                </button>
+                  <button type="submit" class="btn btn-outline-danger ml-5" data-toggle="modal" data-target="#deleteIdiomaModal" onclick="modal_DeleteContent('area')">
+                    <i class="fas fa-fw fa-trash"></i>
+                  </button>
                 {% endfor %}
                 <!-- FIN FOR  -->
               </div>
@@ -105,13 +105,18 @@
       </div>
       <div class="modal-body">
         <form action="">
+          {% csrf_token %}
           <div class="form-group" id="addAjusteModalInput">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <form action="" id="addAjusteModalForm">
+        <form action="" >
+          {% csrf_token %}
+          <div id="addAjusteModalForm">
+            <!-- Contenido JS -->
+          </div>
         </form>
       </div>
     </div>
@@ -134,7 +139,11 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <form action="" id="deleteIdiomaModalForm">
+        <form action="">
+          {% csrf_token %}
+          <div id="deleteIdiomaModalForm">
+            <!-- Contenido JS -->
+          </div>
         </form>
       </div>
     </div>
