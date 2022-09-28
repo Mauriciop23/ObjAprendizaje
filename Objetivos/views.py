@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from Objetivos.models import Objeto, Usuario, Area, AreaList, DepartamentoList
 from django.http.response import HttpResponse, HttpResponseRedirect
-from Objetivos.forms import ObjetoForm, AreaForm, UsuarioForm
+from Objetivos.forms import ObjetoForm, AreaForm, UsuarioForm, AreaListForm, DepartamentoListForm
 import datetime
 from django.contrib import messages
 from itertools import chain
@@ -252,6 +252,30 @@ def dashboardAjustes(request):
             else: 
                 print (actualizacion.errors)
                 print("Invalido")    
+        if "agregar" in request.POST:
+            if request.POST.get('agregar','') == "area":
+                area = request.POST.copy()
+                area['nombre']=request.POST.get('nuevo_area','')
+                form = AreaListForm(area)
+                print(area['nombre'])
+                if form.is_valid():
+                    form.save()
+                else: 
+                    print("Invalido")
+            else:
+                departamento = request.POST.copy()
+                departamento['nombre']=request.POST.get('nuevo_departamento','')
+                form = DepartamentoListForm(departamento)
+                print(departamento['nombre'])
+                if form.is_valid():
+                    form.save()
+                else: 
+                    print("Invalido")
+        if "eliminar" in request.POST:
+            if request.POST.get('tipo','') == "area":
+                area = AreaList.objects.filter(idarea = request.POST.get('eliminar','')).update(activo = False) 
+            else:
+                departamento = DepartamentoList.objects.filter(iddepartamento = request.POST.get('eliminar','')).update(activo = False)               
     return render(request, 'dashboard_ajustes.html', context)
 
 @login_required

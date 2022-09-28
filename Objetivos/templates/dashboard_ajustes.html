@@ -57,7 +57,7 @@
                 <!-- INICIO FOR -->
                 {% for a in areas %}
                 <span class="text-primary">{{a.nombre}}</span>
-                  <button type="submit" class="btn btn-outline-danger ml-5" data-toggle="modal" data-target="#deleteIdiomaModal" onclick="modal_DeleteContent('area')">
+                  <button type="submit" class="btn btn-outline-danger ml-5" data-toggle="modal" data-target="#deleteIdiomaModal" onclick="modal_DeleteContent('area', '{{a.idarea}}', '{{a.nombre}}')">
                     <i class="fas fa-fw fa-trash"></i>
                   </button>
                 {% endfor %}
@@ -79,7 +79,7 @@
                 <!-- INICIO FOR -->
                 {% for d in departamentos %}
                 <span class="text-primary">{{d.nombre}}</span>
-                <button type="button" class="btn btn-outline-danger ml-5" data-toggle="modal" data-target="#deleteIdiomaModal" onclick="modal_DeleteContent('departamento')">
+                <button type="button" class="btn btn-outline-danger ml-5" data-toggle="modal" data-target="#deleteIdiomaModal" onclick="modal_DeleteContent('departamento', '{{d.iddepartamento}}', '{{d.nombre}}')">
                   <i class="fas fa-fw fa-trash"></i>
                 </button>
                 {% endfor %}
@@ -103,22 +103,20 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form method="post" action="" >
+        {% csrf_token %}
       <div class="modal-body">
-        <form action="">
           {% csrf_token %}
           <div class="form-group" id="addAjusteModalInput">
           </div>
-        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <form action="" >
-          {% csrf_token %}
           <div id="addAjusteModalForm">
             <!-- Contenido JS -->
           </div>
-        </form>
       </div>
+    </form>
     </div>
   </div>
 </div>
@@ -137,15 +135,15 @@
       <div class="modal-body">
         <h6 class="text-primary" id="deleteIdiomaModalMessage">#Message#</h6>
       </div>
+      <form method="POST" action=""> {% csrf_token %}
+        <div class="form-group" id="deleteIdiomaModalInput"></div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <form action="">
-          {% csrf_token %}
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button> 
           <div id="deleteIdiomaModalForm">
             <!-- Contenido JS -->
           </div>
-        </form>
       </div>
+    </form>
     </div>
   </div>
 </div>
@@ -161,19 +159,21 @@
     const form = document.getElementById('addAjusteModalForm')
     
     titulo.innerText = "Agregar " + Elemento
-    input.innerHTML = '<input type="text" class="form-control" id="nuevo_'+Elemento+'" placeholder="Ingrese '+ Elemento + '" required>'
-    form.innerHTML = '<button type="sumbit" class="btn btn-success">Agregar</button>'
+    input.innerHTML = '<input type="text" class="form-control" name="nuevo_'+Elemento+'" id="nuevo_'+Elemento+'" placeholder="Ingrese '+ Elemento + '" required>'
+    form.innerHTML = '<button type="sumbit" class="btn btn-success" name="agregar" value="'+Elemento+'">Agregar</button>'
 
   }
 
-  const modal_DeleteContent = (Elemento) =>{
+  const modal_DeleteContent = (Elemento, id, nombre) =>{
   const titulo = document.getElementById('deleteIdiomaModalLabel')
   const message = document.getElementById('deleteIdiomaModalMessage')
   const form = document.getElementById('deleteIdiomaModalForm')
+  const input = document.getElementById('deleteIdiomaModalInput')
 
   titulo.innerText = "Eliminar " + Elemento 
-  message.innerHTML = '¿Está seguro de eliminar el '+Elemento+' <strong>#'+ Elemento+'#?</strong>'
-  form.innerHTML = '<button type="sumbit" class="btn btn-secondary">Eliminar</button>'
+  message.innerHTML = '¿Está seguro de eliminar el '+Elemento+' <strong>'+ nombre+'?</strong>'
+  input.innerHTML = '<input type="text" class="form-control" name="tipo" value="'+ Elemento + '" hidden>'
+  form.innerHTML = '<button type="sumbit" name="eliminar" value="'+id+'" class="btn btn-secondary">Eliminar</button>'
   }
 
 

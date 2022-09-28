@@ -62,7 +62,7 @@
                                 {% for u in usuarios %}
                                 {% if u.username|stringformat:'s' == o.autor_principal|stringformat:'s' %}
                                 <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal_InfoObj"
-                                    onclick="modal_InfoObjContent('{{o.nombre}}', '{{o.descripcion}}', '{{u.nombres}} {{u.apellidos}}', '{{o.fecha}}', '#carrera Obj1#', '{{o.descargas}}', '{{o.idobjeto}}')">
+                                    onclick="modal_InfoObjContent('{{o.nombre}}', '{{o.descripcion}}', '{{u.nombres}} {{u.apellidos}}', '{{o.fecha}}', '#carrera Obj1#', '{{o.descargas}}', '{{o.idobjeto}}', '{{o.archivo}}')">
                                     <i class="fas fa-info-circle mr-2"></i>Ver Detalles
                                 </button>
                                 {% endif %}
@@ -230,7 +230,7 @@
       });
     });
 
-    const modal_InfoObjContent = (obj_titulo, obj_desc, obj_autor, obj_fecha, obj_carrera, obj_descargas, obj_id) =>{
+    const modal_InfoObjContent = (obj_titulo, obj_desc, obj_autor, obj_fecha, obj_carrera, obj_descargas, obj_id, ubicacion) =>{
     const titulo = document.getElementById('modal_InfoObj_Label')
     const descrip = document.getElementById('modal_InfoObj_desc')
     const autor = document.getElementById('modal_InfoObj_autor')
@@ -239,13 +239,15 @@
     const descargas = document.getElementById('modal_InfoObj_descargas')
     const form = document.getElementById('modal_InfoObj_form')
     
+    aux1 = "'/media/"
+    aux2 = "'"
     titulo.innerText = obj_titulo
     descrip.innerText = obj_desc
     autor.innerText = obj_autor
     fecha.innerText = obj_fecha
     carrera.innerText = obj_carrera
     descargas.innerText = obj_descargas
-    form.innerHTML= '<button type="button" class="btn btn-danger" type="submit"> <i class="fas fa-trash mr-2"></i>Eliminar Objeto </button> <button type="button" class="btn btn-success"> <i class="fas fa-download mr-2"></i>Descargar </button>'
+    form.innerHTML= '<button type="button" class="btn btn-danger" type="submit"> <i class="fas fa-trash mr-2"></i>Eliminar Objeto </button> <button type="submit" class="btn btn-success" onclick="window.open('+aux1+''+ubicacion+''+aux2+')" download> <i class="fas fa-download mr-2"></i>Descargar </button>'
 
   }
 </script>
