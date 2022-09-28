@@ -123,7 +123,7 @@
             </div>
                 <hr>
             <div class="d-flex justify-content-between">
-                <form>
+                <form method="POST">
                     {% csrf_token %}
                     <div id="modal_InfoObj_form">
                         
@@ -247,7 +247,7 @@
     fecha.innerText = obj_fecha
     carrera.innerText = obj_carrera
     descargas.innerText = obj_descargas
-    form.innerHTML= '<button type="button" class="btn btn-danger" type="submit"> <i class="fas fa-trash mr-2"></i>Eliminar Objeto </button> <button type="submit" class="btn btn-success" onclick="window.open('+aux1+''+ubicacion+''+aux2+')" download> <i class="fas fa-download mr-2"></i>Descargar </button>'
+    form.innerHTML= '<button type="submit" name="eliminar" value="'+obj_id+'" class="btn btn-danger" type="submit"> <i class="fas fa-trash mr-2"></i>Eliminar Objeto </button> <button type="submit" class="btn btn-success" onclick="window.open('+aux1+''+ubicacion+''+aux2+')" download> <i class="fas fa-download mr-2"></i>Descargar </button>'
 
   }
 </script>

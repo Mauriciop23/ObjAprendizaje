@@ -163,7 +163,7 @@ def dashboardGeneral(request):
 
 @login_required
 def dashboardContenido(request):
-    objetos = Objeto.objects.filter(autor_principal = request.user.username)
+    objetos = Objeto.objects.filter(Q(autor_principal = request.user.username), Q(estatus = 'activo'))
     areas = AreaList.objects.filter(activo = True)
     departamentos = DepartamentoList.objects.filter(activo = True)
     usuarios = Usuario.objects.all()
@@ -220,7 +220,9 @@ def dashboardContenido(request):
                         return HttpResponseRedirect('/dashboard/mi_contenido')
                 else: 
                     print (actualizacion.errors)
-                    print("Invalido")            
+                    print("Invalido")      
+            if "eliminar" in request.POST:
+                objeto = Objeto.objects.filter(idobjeto = request.POST.get('eliminar','')).update(estatus = 'inactivo')              
     return render(request, 'dashboard_contenido.html', context)
 
 @login_required
