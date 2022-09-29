@@ -24,28 +24,8 @@
           <h6 class="m-0 font-weight-bold text-primary">Ajustes de Objetos de Estudio</h6>
         </div>
         <div class="d-flex flex-row">
-          <!-- CARD IDIOMAS -->
-          <div class="card-body d-flex justify-content-center">
-            <div class="card shadow">
-              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Idiomas</h6>
-                <button type="button" class="btn btn-success ml-5" data-toggle="modal" data-target="#addAjusteModal" onclick="modal_AddContent('idioma')">
-                  <i class="fas fa-fw fa-plus"></i>
-                </button>
-              </div>
-              <div class="card-body">
-                <!-- INICIO FOR -->
-                <span class="text-primary">#Idiomas#</span>
-                <button type="button" class="btn btn-outline-danger ml-5" data-toggle="modal" data-target="#deleteIdiomaModal" onclick="modal_DeleteContent('idioma')">
-                  <i class="fas fa-fw fa-trash"></i>
-                </button>
-                <!-- FIN FOR  -->
-              </div>
-            </div>
-          </div>
-
           <!-- CARD AREAS -->
-          <div class="card-body d-flex justify-content-center">
+          <div class="card-body d-flex justify-content-center h-100">
             <div class="card shadow">
               <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Áreas</h6>
@@ -56,10 +36,18 @@
               <div class="card-body">
                 <!-- INICIO FOR -->
                 {% for a in areas %}
-                <span class="text-primary">{{a.nombre}}</span>
-                  <button type="submit" class="btn btn-outline-danger ml-5" data-toggle="modal" data-target="#deleteIdiomaModal" onclick="modal_DeleteContent('area', '{{a.idarea}}', '{{a.nombre}}')">
-                    <i class="fas fa-fw fa-trash"></i>
-                  </button>
+                <div class="container">
+                  <div class="row my-1 justify-content-md-center">
+                    <div class="col-8">
+                      <span class="text-primary">{{a.nombre}}</span>
+                    </div>
+                    <div class="col-4">
+                      <button type="submit" class="btn btn-outline-danger ml-5" data-toggle="modal" data-target="#deleteIdiomaModal" onclick="modal_DeleteContent('area', '{{a.idarea}}', '{{a.nombre}}')">
+                        <i class="fas fa-fw fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
                 {% endfor %}
                 <!-- FIN FOR  -->
               </div>
@@ -67,7 +55,7 @@
           </div>
 
           <!-- CARD DEPARTAMENTOS -->
-          <div class="card-body d-flex justify-content-center">
+          <div class="card-body d-flex justify-content-center h-100">
             <div class="card shadow">
               <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Departamentos</h6>
@@ -78,10 +66,20 @@
               <div class="card-body">
                 <!-- INICIO FOR -->
                 {% for d in departamentos %}
-                <span class="text-primary">{{d.nombre}}</span>
-                <button type="button" class="btn btn-outline-danger ml-5" data-toggle="modal" data-target="#deleteIdiomaModal" onclick="modal_DeleteContent('departamento', '{{d.iddepartamento}}', '{{d.nombre}}')">
-                  <i class="fas fa-fw fa-trash"></i>
-                </button>
+                <div class="container">
+                  <div class="row my-1 justify-content-md-center">
+                    <div class="col-8">
+                      <span class="text-primary">{{d.nombre}}</span>
+                    </div>
+                    <div class="col-4">
+                      <button type="button" class="btn btn-outline-danger ml-5" data-toggle="modal" data-target="#deleteIdiomaModal" onclick="modal_DeleteContent('departamento', '{{d.iddepartamento}}', '{{d.nombre}}')">
+                        <i class="fas fa-fw fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
+                
                 {% endfor %}
                 <!-- FIN FOR  -->
               </div>
@@ -179,3 +177,7 @@
 
 </script>
 {%endblock%}
+
+
+
+

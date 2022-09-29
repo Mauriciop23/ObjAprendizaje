@@ -19,9 +19,9 @@ class UsuarioForm(forms.ModelForm):
 class AreaListForm(forms. ModelForm):
     class Meta:
         model = AreaList
-        exclude = ('idarea', 'activo', 'nombre')
+        exclude = ('idarea', 'activo')
 
 class DepartamentoListForm(forms. ModelForm):
     class Meta:
         model = DepartamentoList
-        exclude = ('iddepartamento', 'activo', 'nombre')        
+        exclude = ('iddepartamento', 'activo')        

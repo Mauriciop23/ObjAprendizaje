@@ -52,8 +52,8 @@
             <!-- Nav Item - Areas -->
             {% for a in areas %}
             <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
-            <li class="nav-item">
-                <button class="nav-link" type="submit" name="area" id="area" value="{{a.nombre}}">
+            <li class="nav-item" >
+                <button style="background-color: transparent; border: none;" class="nav-link" type="submit" name="area" id="area" value="{{a.nombre}}">
                     <i class="fas fa-book mr-2"></i>
                     <span class="">{{a.nombre}}</span>
                 </button>
@@ -201,8 +201,23 @@
                         <form id="objeto_Card_ind" action="" method="POST" enctype="multipart/form-data" class="col-xxl-4 col-xl-6 col-md-6 mb-4"> {% csrf_token %}
                         <article> <!-- Begin Card --> 
                             <div class="card shadow h-100 py-2">
-                                <img src="{% static 'img/Card_Img2.png' %}"
-                                class="card-img-top p-4" style="border-radius: 40px;" alt="...">
+                                {% for a in areasxobjetos %}
+                                {% if a.idobjeto|stringformat:'s' == o.idobjeto|stringformat:'s' %}
+                                    {% if a.nombre == 'Ciencias Físico Matemáticas' %}
+                                        <img src="{% static 'img/Card_Img1.png' %}"
+                                        class="card-img-top p-4" style="border-radius: 40px;" alt="...">
+                                    {% elif a.nombre == 'Educación' %}
+                                        <img src="{% static 'img/Card_Img2.png' %}"
+                                        class="card-img-top p-4" style="border-radius: 40px;" alt="...">
+                                    {% elif a.nombre == 'Ingenierías' %}
+                                        <img src="{% static 'img/Card_Img3.png' %}"
+                                        class="card-img-top p-4" style="border-radius: 40px;" alt="...">
+                                    {% else %}
+                                        <img src="{% static 'img/Card_Img4.png' %}"
+                                        class="card-img-top p-4" style="border-radius: 40px;" alt="...">
+                                    {% endif %}
+                                {% endif %}
+                                {% endfor %}
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
