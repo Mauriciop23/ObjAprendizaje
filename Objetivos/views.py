@@ -42,9 +42,11 @@ def areas(request):
         if request.user.rol == 'alumno': profesor = False
         else: profesor = True
         consulta = Area.objects.filter(nombre = nombre)
+        areasxobjetos = Area.objects.all()
+        usuarios = Usuario.objects.all()
         objetos = Objeto.objects.filter(idobjeto = 0)
         for c in consulta:
-            aux2 = Objeto.objects.filter(idobjeto = c.idobjeto)
+            aux2 = Objeto.objects.filter(Q(idobjeto = c.idobjeto), Q(estatus = 'activo'))
             objetos = chain(objetos, aux2)
         areas = AreaList.objects.filter(activo = True)
         context = {
@@ -53,7 +55,9 @@ def areas(request):
             'apellidos_usuario': request.user.apellidos,
             'profesor': profesor,
             'objetos': objetos,
-            'areas': areas
+            'areas': areas,
+            'areasxobjetos': areasxobjetos,
+            'usuarios': usuarios
         }
         if request.method == "POST":
             if "detalles" in request.POST:    
@@ -419,13 +423,15 @@ def objeto(request):
         else: profesor = True
         consulta = Objeto.objects.get(idobjeto = idobjeto)
         areas = Area.objects.filter(idobjeto = idobjeto)
+        usuarios = Usuario.objects.all()
         context = {
             'user': request.user,
             'nombre_usuario': request.user.nombres,
             'apellidos_usuario': request.user.apellidos,
             'profesor': profesor,
             'consulta': consulta,
-            'areas': areas
+            'areas': areas,
+            'usuarios': usuarios
         }
         if request.method == "POST" and "desc" in request.POST:
             obj = Objeto.objects.get(idobjeto = request.POST.get('desc',''))

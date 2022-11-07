@@ -107,15 +107,20 @@
                 <div class="col-12 col-md-8">
                     <label><strong>Descipción</strong></label>
                     <p>{{consulta.descripcion}}</p>
+                    {% if consulta.descripcion_otro %}
                     <label><strong>Resume</strong></label>
-                    <p>#Descripción en humilde si la hay#</p>
+                    <p>{{consulta.descripcion_otro}}</p>
+                    {% endif %}
                     <hr>
                     <div class="d-flex flex-row justify-content-between">
+                        {% for u in usuarios %}
+                        {% if u.username|stringformat:'s' == consulta.autor_principal|stringformat:'s' %}
                         <div>
                             <label><strong>Autor</strong></label>
-                            <p>#NOMBRE COMPLETO#</p>
-                            
+                            <p>{{u.nombres}} {{u.apellidos}}</p>
                         </div>
+                        {% endif %}
+                        {% endfor %}
                         <div>
                             <label><strong>Fecha</strong></label>
                             <p>{{consulta.fecha}}</p>
@@ -127,10 +132,12 @@
                             {% endfor %}
                         </div>
                     </div>
+                    {% if consulta.coautores %}
                     <div>
                         <label><strong>Coautores</strong></label>
                             <p>{{consulta.coautores}}</p>
                     </div>
+                    {% endif %}
                     <hr>
                     <div class="d-flex flex-row justify-content-around">
                         <div>

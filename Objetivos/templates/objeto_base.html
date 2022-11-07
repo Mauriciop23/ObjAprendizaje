@@ -51,32 +51,16 @@
             </div>
 
             <!-- Nav Item - Areas -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
+            {% for a in areas %}
+            <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+            <li class="nav-item" >
+                <button style="background-color: transparent; border: none;" class="nav-link" type="submit" name="area" id="area" value="{{a.nombre}}">
                     <i class="fas fa-book mr-2"></i>
-                    <span class="">Educación</span>
-                </a>
+                    <span class="">{{a.nombre}}</span>
+                </button>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-book mr-2"></i>
-                    <span class="">Ingenierías</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-book mr-2"></i>
-                    <span class="">Físico Matemáticas</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-book mr-2"></i>
-                    <span class="">Económico Administrativo</span>
-                </a>
-            </li>
+            </form>
+            {% endfor %}
 
 
             {% if profesor %}
