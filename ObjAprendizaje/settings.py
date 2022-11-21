@@ -24,9 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-l$^a$u*8j&^_zf5g=&9rb=#icu0(4!1m5&g4*a0uw*$j045dak'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+SECURE_SSL_REDIRECT = True
 
-ALLOWED_HOSTS = ['178.128.152.44', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['ec2-44-210-94-18.compute-1.amazonaws.com','44.210.94.18','178.128.152.44', 'localhost', '127.0.0.1', 'objetos-aprendizaje-tecnm.mx', 'www.objetos-aprendizaje-tecnm.mx']
 
 
 
@@ -76,7 +77,7 @@ WSGI_APPLICATION = 'ObjAprendizaje.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-if  DEBUG:
+if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -98,8 +99,6 @@ else:
             'PORT': '5432',
         }
     }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -139,7 +138,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'Objetivos/static'),)
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, 'Objetivos/static'),)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+"""if not DEBUG:
+	STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+	STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+"""
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
