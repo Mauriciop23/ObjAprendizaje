@@ -1,4 +1,5 @@
 {% extends "dashboardBase.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block links %}
@@ -11,7 +12,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-8 d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Ajustes Generales</h1>
+            <h1 class="h3 mb-0 text-gray-800">{%trans 'Ajustes Generales'%}</h1>
         </div>
     </div>
 </div>
@@ -21,14 +22,14 @@
     <div class="card shadow mb-4 ">
             <!-- Card Header - Dropdown -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary">Ajustes de Objetos de Estudio</h6>
+          <h6 class="m-0 font-weight-bold text-primary">{%trans 'Ajustes de Objetos de Estudio'%}</h6>
         </div>
         <div class="d-flex flex-row">
           <!-- CARD AREAS -->
           <div class="card-body d-flex justify-content-center h-100">
             <div class="card shadow">
               <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Áreas</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{%trans 'Áreas'%}</h6>
                   <button type="button" class="btn btn-success ml-5" data-toggle="modal" data-target="#addAjusteModal" onclick="modal_AddContent('area')">
                     <i class="fas fa-fw fa-plus"></i>
                   </button>
@@ -58,7 +59,7 @@
           <div class="card-body d-flex justify-content-center h-100">
             <div class="card shadow">
               <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Departamentos</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{%trans 'Departamentos'%}</h6>
                 <button type="button" class="btn btn-success ml-5" data-toggle="modal" data-target="#addAjusteModal" onclick="modal_AddContent('departamento')">
                   <i class="fas fa-fw fa-plus"></i>
                 </button>
@@ -96,7 +97,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-primary" id="addAjusteModalLabel">#Nuevo Elemento#</h5>
+        <h5 class="modal-title text-primary" id="addAjusteModalLabel">#{%trans 'Nuevo Elemento'%}#</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -109,7 +110,7 @@
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">{%trans 'Cancelar'%}</button>
           <div id="addAjusteModalForm">
             <!-- Contenido JS -->
           </div>
@@ -125,18 +126,18 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-primary" id="deleteIdiomaModalLabel">#Eliminar Idioma#</h5>
+        <h5 class="modal-title text-primary" id="deleteIdiomaModalLabel">#{%trans 'Eliminar Idioma'%}#</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <h6 class="text-primary" id="deleteIdiomaModalMessage">#Message#</h6>
+        <h6 class="text-primary" id="deleteIdiomaModalMessage">#{%trans 'Message'%}#</h6>
       </div>
       <form method="POST" action=""> {% csrf_token %}
         <div class="form-group" id="deleteIdiomaModalInput"></div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button> 
+        <button type="button" class="btn btn-danger" data-dismiss="modal">{%trans 'Cancelar'%}</button> 
           <div id="deleteIdiomaModalForm">
             <!-- Contenido JS -->
           </div>
@@ -156,9 +157,9 @@
     const input = document.getElementById('addAjusteModalInput')
     const form = document.getElementById('addAjusteModalForm')
     
-    titulo.innerText = "Agregar " + Elemento
-    input.innerHTML = '<input type="text" class="form-control" name="nuevo_'+Elemento+'" id="nuevo_'+Elemento+'" placeholder="Ingrese '+ Elemento + '" required>'
-    form.innerHTML = '<button type="sumbit" class="btn btn-success" name="agregar" value="'+Elemento+'">Agregar</button>'
+    titulo.innerText = "{%trans 'Agregar'%} " + Elemento
+    input.innerHTML = '<input type="text" class="form-control" name="nuevo_'+Elemento+'" id="nuevo_'+Elemento+'" placeholder="{%trans "Ingrese"%} '+ Elemento + '" required>'
+    form.innerHTML = '<button type="sumbit" class="btn btn-success" name="agregar" value="'+Elemento+'">{%trans "Agregar"%}</button>'
 
   }
 
@@ -168,10 +169,10 @@
   const form = document.getElementById('deleteIdiomaModalForm')
   const input = document.getElementById('deleteIdiomaModalInput')
 
-  titulo.innerText = "Eliminar " + Elemento 
-  message.innerHTML = '¿Está seguro de eliminar el '+Elemento+' <strong>'+ nombre+'?</strong>'
+  titulo.innerText = "{%trans 'Eliminar'%} " + Elemento 
+  message.innerHTML = "{%trans '¿Está seguro de eliminar el'%} "+Elemento+" <strong>"+ nombre+"?</strong>"
   input.innerHTML = '<input type="text" class="form-control" name="tipo" value="'+ Elemento + '" hidden>'
-  form.innerHTML = '<button type="sumbit" name="eliminar" value="'+id+'" class="btn btn-secondary">Eliminar</button>'
+  form.innerHTML = '<button type="sumbit" name="eliminar" value="'+id+'" class="btn btn-secondary">{%trans "Eliminar"%}</button>'
   }
 
 

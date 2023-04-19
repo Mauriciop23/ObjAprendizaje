@@ -24,8 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-l$^a$u*8j&^_zf5g=&9rb=#icu0(4!1m5&g4*a0uw*$j045dak'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
 DEBUG = False
 SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = False
 
 ALLOWED_HOSTS = ['ec2-44-210-94-18.compute-1.amazonaws.com','44.210.94.18','178.128.152.44', 'localhost', '127.0.0.1', 'objetos-aprendizaje-tecnm.mx', 'www.objetos-aprendizaje-tecnm.mx']
 
@@ -51,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'ObjAprendizaje.middleware.LanguageMiddleware',
 ]
 
 ROOT_URLCONF = 'ObjAprendizaje.urls'
@@ -83,7 +87,7 @@ if DEBUG:
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'obj_db',
             'USER': 'postgres',
-            'PASSWORD': 'daniela',
+            'PASSWORD': 'holamundo',
             'HOST': 'localhost',
             'PORT': '5432',
         }
@@ -124,11 +128,21 @@ AUTH_USER_MODEL = 'Objetivos.Usuario'
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+USE_L10N = True
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('es', 'Español'),
+]
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
 
 USE_TZ = True
 

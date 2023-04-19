@@ -1,4 +1,5 @@
 {% extends "dashboardBase.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block links %}
@@ -11,12 +12,12 @@
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-8 d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Mis Objetos de Estudio</h1>
+            <h1 class="h3 mb-0 text-gray-800">{%trans 'Mis Objetos de Estudio'%}</h1>
         </div>
         <div class="col-12 col-md-4 px-0">
             <button type="button" class="btn btn-info w-100" data-toggle="modal" data-target="#nuevoobjetoModal">
                 <i class="fas fa-fw fa-plus"></i>
-                Nuevo Objeto
+                {%trans 'Nuevo Objeto'%}
             </button>
         </div>
     </div>
@@ -30,11 +31,11 @@
             <!-- Card Header - Dropdown -->
             <div
                 class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Todos los objetos</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{%trans 'Todos los objetos'%}</h6>
                 
                 <div class="d-flex col-4 px-0 align-items-center">
                     <i class="fas fa-search text-primary mr-2" style="font-size: 1rem;"></i>
-                    <input type="text" id="buscador_Obj" class="form-control" placeholder="Buscar objeto...">
+                    <input type="text" id="buscador_Obj" class="form-control" placeholder="{%trans 'Buscar objeto'%}...">
             
                 </div>
             </div>
@@ -43,11 +44,11 @@
                 <table class="table table-striped table-hover text-gray-800" id="tabla_Obj">
                     <thead>
                         <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Calificación</th>
-                        <th scope="col">Estatus</th>
-                        <th scope="col">Detalles</th>
+                        <th scope="col">{%trans 'Nombre'%}</th>
+                        <th scope="col">{%trans 'Fecha'%}</th>
+                        <th scope="col">{%trans 'Calificación'%}</th>
+                        <th scope="col">{%trans 'Estatus'%}</th>
+                        <th scope="col">{%trans 'Detalles'%}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,7 +64,7 @@
                                 {% if u.username|stringformat:'s' == o.autor_principal|stringformat:'s' %}
                                 <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal_InfoObj"
                                     onclick="modal_InfoObjContent('{{o.nombre}}', '{{o.descripcion}}', '{{u.nombres}} {{u.apellidos}}', '{{o.fecha}}', '#carrera Obj1#', '{{o.descargas}}', '{{o.idobjeto}}', '{{o.archivo}}')">
-                                    <i class="fas fa-info-circle mr-2"></i>Ver Detalles
+                                    <i class="fas fa-info-circle mr-2"></i>{%trans 'Ver Detalles'%}
                                 </button>
                                 {% endif %}
                                 {% endfor %}
@@ -88,7 +89,7 @@
     <div class="modal-dialog text-gray-800" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="modal_InfoObj_Label">#NOMBRE DEL OBJETO#</h5>
+            <h5 class="modal-title" id="modal_InfoObj_Label">#{%trans 'NOMBRE DEL OBJETO'%}#</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -96,27 +97,27 @@
         <div class="modal-body">
             <div class="list-group d-flex">
                 <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
-                    <h5 class="mb-1"><strong>Descripción</strong></h5>
-                    <p class="mb-1" id="modal_InfoObj_desc">#Descripción#</p>
+                    <h5 class="mb-1"><strong>{%trans 'Descripción'%}</strong></h5>
+                    <p class="mb-1" id="modal_InfoObj_desc">#{%trans 'Descripción'%}#</p>
                 </div>
                 <div class="d-flex flex-row">
                     <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
-                        <h5 class="mb-1"><strong>Autor</strong></h5>
-                        <p class="mb-1" id="modal_InfoObj_autor">#AUTOR#</p>
+                        <h5 class="mb-1"><strong>{%trans 'Autor'%}</strong></h5>
+                        <p class="mb-1" id="modal_InfoObj_autor">#{%trans 'AUTOR'%}#</p>
                     </div>
                     <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
-                        <h5 class="mb-1"><strong>Fecha</strong></h5>
-                        <p class="mb-1" id="modal_InfoObj_fecha">#Fecha#</p>
+                        <h5 class="mb-1"><strong>{%trans 'Fecha'%}</strong></h5>
+                        <p class="mb-1" id="modal_InfoObj_fecha">#{%trans 'Fecha'%}#</p>
                     </div>
                 </div>
                 <div class="d-flex flex-row">
                     <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
-                        <h5 class="mb-1"><strong>Carrera</strong></h5>
-                        <p class="mb-1" id="modal_InfoObj_carrera">#CARRERA#</p>
+                        <h5 class="mb-1"><strong>{%trans 'Carrera'%}</strong></h5>
+                        <p class="mb-1" id="modal_InfoObj_carrera">#{%trans 'CARRERA'%}#</p>
                     </div>
                     <div class="list-group-item list-group-item-action flex-column align-items-start" style="pointer-events: none;">
-                        <h5 class="mb-1"><strong>Descargas</strong></h5>
-                        <p class="mb-1" id="modal_InfoObj_descargas">#NO. DE DESCARGAS#</p>
+                        <h5 class="mb-1"><strong>{%trans 'Descargas'%}</strong></h5>
+                        <p class="mb-1" id="modal_InfoObj_descargas">#{%trans 'NO. DE DESCARGAS'%}#</p>
                     </div>
                 </div>
                 
@@ -133,7 +134,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-dismiss="modal">
-            <i class="fas fa-check mr-2"></i>Finalizar</button>
+            <i class="fas fa-check mr-2"></i>{%trans 'Finalizar'%}</button>
         </div>
         </div>
     </div>
@@ -145,7 +146,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-primary" id="nuevoobjetoModal">Nuevo Objeto de Aprendizaje</h5>
+                <h5 class="modal-title text-primary" id="nuevoobjetoModal">{%trans 'Nuevo Objeto de Aprendizaje'%}</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -156,23 +157,23 @@
                     
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="nvobj_Nombre">Nombre</label>
+                                <label for="nvobj_Nombre">{%trans 'Nombre'%}</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" maxlength="180" required>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="nvobj_Archivo">Archivo</label>
+                                <label for="nvobj_Archivo">{%trans 'Archivo'%}</label>
                                 <input type="file" class="form-control-file rounded h-5" id="archivo" name="archivo" style="border: 1px solid #d1d3e2;">
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="nvobj_Descrip">Descripción</label>
+                                <label for="nvobj_Descrip">{%trans 'Descripción'%}</label>
                                 <textarea class="form-control" id="descripcion" name="descripcion" rows="3" maxlength="100" required></textarea>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="nvobj_Descrip">Descripción en otro idioma (Opcional)</label>
-                                <textarea class="form-control" id="descripcion_otro" name="descripcion_otro" rows="3" placeholder="Descripción en Ingles, Frances, Dialecto, etc..."></textarea>
+                                <label for="nvobj_Descrip">{%trans 'Descripción en otro idioma (Opcional)'%}</label>
+                                <textarea class="form-control" id="descripcion_otro" name="descripcion_otro" rows="3" placeholder="{%trans 'Descripción en Ingles, Frances, Dialecto'%}, etc..."></textarea>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="nvobj_Carrera">Area(s)</label> <br>
+                                <label for="nvobj_Carrera">{%trans 'Area(s)'%}</label> <br>
                                 <!-- INICIO FOR -->
                                 {% for a in areas %}
                                 <div class="form-check form-check-inline">
@@ -183,7 +184,7 @@
                                 <!-- FIN FOR -->
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="nvobj_Departamento">Departamento(s)</label> <br>
+                                <label for="nvobj_Departamento">{%trans 'Departamento(s)'%}</label> <br>
                                 <!-- INICIO FOR -->
                                 {% for d in departamentos %}
                                 <div class="form-check form-check-inline">
@@ -194,8 +195,8 @@
                                 <!-- FIN FOR -->
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="nvobj_Nombre">Coautores</label>
-                                <input type="text" class="form-control" id="coautores" name="coautores" placeholder="Ejemplo Coautor1, Ejemplo Coautor2, Ejemplo Coautor3">
+                                <label for="nvobj_Nombre">{%trans 'Coautores'%}</label>
+                                <input type="text" class="form-control" id="coautores" name="coautores" placeholder="{%trans 'Ejemplo'%} Coautor1, {%trans 'Ejemplo'%} Coautor2, {%trans 'Ejemplo'%} Coautor3">
                             </div>
                         </div>
                     
@@ -203,11 +204,11 @@
                 <div class="modal-footer">
                     <button class="btn btn-danger" type="button" data-dismiss="modal">
                         <i class="fas fa-ban "></i>
-                        Cancelar
+                        {%trans 'Cancelar'%}
                     </button>
                     <button type="submit" class="btn btn-success" name="addobjeto" value="addobjeto">
                         <i class="fas fa-check mr-2"></i>
-                        Agregar
+                        {%trans 'Agregar'%}
                     </button>
                 </div>
             </form>
@@ -247,7 +248,7 @@
     fecha.innerText = obj_fecha
     carrera.innerText = obj_carrera
     descargas.innerText = obj_descargas
-    form.innerHTML= '<button type="submit" name="eliminar" value="'+obj_id+'" class="btn btn-danger" type="submit"> <i class="fas fa-trash mr-2"></i>Eliminar Objeto </button> <button type="submit" class="btn btn-success" onclick="window.open('+aux1+''+ubicacion+''+aux2+')" download> <i class="fas fa-download mr-2"></i>Descargar </button>'
+    form.innerHTML= '<button type="submit" name="eliminar" value="'+obj_id+'" class="btn btn-danger" type="submit"> <i class="fas fa-trash mr-2"></i>{%trans "Eliminar Objeto"%} </button> <button type="submit" class="btn btn-success" onclick="window.open('+aux1+''+ubicacion+''+aux2+')" download> <i class="fas fa-download mr-2"></i>{%trans "Descargar"%} </button>'
 
   }
 </script>

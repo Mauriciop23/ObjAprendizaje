@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -9,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link rel="icon" type="image/x-icon" href="{% static 'img/Logo-ITMorelia-FAVICON.png' %}">
-    <title>Profesores | Repositorio Tec</title>
+    <title>{%trans 'Profesores | Repositorio Tec'%}</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
@@ -37,7 +38,7 @@
                 <div class="sidebar-brand-icon">
                     <img class="logo mb-1" src="{% static 'img/Logo-ITMorelia.png' %}" alt="" width="150px">
                 </div>
-                <div class="sidebar-brand-text mx-3">REPOSITORIO TEC</div>
+                <div class="sidebar-brand-text mx-3">{%trans 'REPOSITORIO TEC'%}</div>
             </a>
 
 
@@ -54,7 +55,7 @@
             <li class="nav-item {{ activo_general }}">
                 <a class="nav-link" href="{% url 'dashboard' %}" aria-expanded="true">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>General</span>
+                    <span>{%trans 'General'%}</span>
                 </a>
             </li>
             {% if request.user.rol == "profesor" %}
@@ -62,7 +63,7 @@
             <li class="nav-item {{ activo_contenido }}">
                 <a class="nav-link " href="{% url 'dashboardContenido' %}" aria-expanded="true">
                     <i class="fas fa-fw fa-book"></i> 
-                    <span>Mi contenido</span>
+                    <span>{%trans 'Mi contenido'%}</span>
                 </a>
             </li>
             {% endif %}
@@ -71,14 +72,14 @@
             <li class="nav-item {{ activo_profesores }}">
                 <a class="nav-link " href="{% url 'dashboardProfesores' %}" aria-expanded="true">
                     <i class="fas fa-fw fa-graduation-cap"></i>
-                    <span>Profesores</span>
+                    <span>{%trans 'Profesores'%}</span>
                 </a>
             </li>
 
             <li class="nav-item {{ activo_Objeto }}">
                 <a class="nav-link " href="{% url 'dashboardAjustes' %}" aria-expanded="true">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Ajustes</span>
+                    <span>{%trans 'Ajustes'%}</span>
                 </a>
             </li>
 
@@ -87,7 +88,7 @@
             <li class="nav-item">
                 <a class="nav-link " href="{% url 'home' %}" aria-expanded="true">
                     <i class="fas fa-fw fa-book"></i>
-                    <span>Repositorio</span>
+                    <span>{%trans 'Repositorio'%}</span>
                 </a>
             </li>
 
@@ -100,8 +101,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
-
 
         </ul>
         <!-- End of Sidebar -->
@@ -119,7 +118,18 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <h3 class="h4 md-h3 mb-0 text-gray-800">Hola, <span style="text-transform: capitalize;">{{nombre_usuario}}</span>!</h3>
+                    <h3 class="h4 md-h3 mb-0 text-gray-800">{%trans 'Hola'%}, <span style="text-transform: capitalize;">{{nombre_usuario}}</span>!</h3>
+
+                    <!-- Lenguajes -->
+                    <form method="post" action="{% url 'change_language' %}">
+                        {% csrf_token %}
+                        <button type="submit" value="en" name="language" class="bg-transparent border-0"> <img src="../static/img/estados-unidos.png" alt="en" height="25" width="25"> </button>
+                    </form>
+
+                    <form method="post" action="{% url 'change_language' %}">
+                        {% csrf_token %}
+                        <button type="submit" value="es" name="language" class="bg-transparent border-0"> <img src="../static/img/mexico.png" alt="es" height="25" width="25"> </button>
+                    </form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -130,6 +140,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
+
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
@@ -220,12 +231,12 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" style="cursor: pointer;" data-toggle="modal" data-target="#modal_InfoPerfil">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Editar  Perfil
+                                    {%trans 'Editar  Perfil'%}
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Salir
+                                    {%trans 'Salir'%}
                                 </a>
                             </div>
                         </li>
@@ -248,23 +259,23 @@
                             <div class="modal-body text-gray-800">
                                     <div class="form-row">
                                         <div class="form-group col-md-12">
-                                            <label for="imagen">Foto de Perfil</label>
+                                            <label for="imagen">{%trans 'Foto de Perfil'%}</label>
                                             <input type="file" class="form-control" id="imagen" name="imagen">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="nombres ">Nombre</label>
+                                            <label for="nombres ">{%trans 'Nombre'%}</label>
                                             <input type="text" class="form-control" id="nombres " name="nombres " value="{{user.nombres}}" required>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="apellidos">Apellidos</label>
+                                            <label for="apellidos">{%trans 'Apellidos'%}</label>
                                             <input type="text" class="form-control" id="apellidos" name="apellidos" value="{{user.apellidos}}" required>
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <label for="email">Correo</label>
+                                            <label for="email">{%trans 'Correo'%}</label>
                                             <input type="email" class="form-control" id="email" name="email" value="{{user.email}}" required>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="telefono">Teléfono</label>
+                                            <label for="telefono">{%trans 'Teléfono'%}</label>
                                             <input type="text" class="form-control" id="telefono" name="telefono" value="{{user.telefono}}" required>
                                         </div>
                                         <div class="form-group col-md-6">
@@ -272,11 +283,11 @@
                                             <input type="text" class="form-control" id="rfc" name="rfc" value="{{user.rfc}}" required>
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <label for="institucion">Institución</label>
+                                            <label for="institucion">{%trans 'Institución'%}</label>
                                             <input type="text" class="form-control" id="institucion" name="institucion" value="{{user.institucion}}" required>
                                         </div>
                                         <div class="form-group col-md-12">
-                                            <label for="editPerfil_Departamento">Departamento</label>
+                                            <label for="editPerfil_Departamento">{%trans 'Departamento'%}</label>
                                             <select class="form-control" id="editPerfil_Departamento" name="editPerfil_Departamento">
                                               {% for d in departamentos %}  
                                               {% if user.departamento == d.nombre %}
@@ -289,8 +300,8 @@
                                         </div>
                                         <hr>
                                         <div class="form-group col-md-12">
-                                            <label for="password">Contraseña</label>
-                                            <input type="password" class="form-control" id="password" name="password" placeholder="Solo si la deseas modificar">
+                                            <label for="password">{%trans 'Contraseña'%}</label>
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="{%trans 'Solo si la deseas modificar'%}">
                                         </div>
                                     </div>
                                 
@@ -298,11 +309,11 @@
                             <div class="modal-footer">
                                 <button class="btn btn-danger" type="button" data-dismiss="modal">
                                     <i class="fas fa-ban "></i>
-                                    Cancelar
+                                    {%trans 'Cancelar'%}
                                 </button>
                                     <button type="submit" class="btn btn-success" name="edit-usuario" value="{{user.username}}">
                                         <i class="fas fa-check mr-2"></i>
-                                        Actualizar
+                                        {%trans 'Actualizar'%}
                                     </button>
                             </div>
                         </form>
@@ -350,15 +361,15 @@
         <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-danger" id="logoutModal">Cerrar sesión</h5>
+                    <h5 class="modal-title text-danger" id="logoutModal">{%trans 'Cerrar sesión'%}</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body text-gray-800">¿Está seguro de cerrar la sesión?</div>
+                <div class="modal-body text-gray-800">{%trans '¿Está seguro de cerrar la sesión?'%}</div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="{% url 'logout' %}">Cerrar sesión</a>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">{%trans 'Cancelar'%}</button>
+                    <a class="btn btn-primary" href="{% url 'logout' %}">{%trans 'Cerrar sesión'%}</a>
                 </div>
             </div>
         </div>

@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -10,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/x-icon" href="{% static 'img/Logo-ITMorelia-FAVICON.png' %}">
-    <title>Repositorio TecNM | DEPI</title>
+    <title>{%trans 'Repositorio TecNM | DEPI'%}</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
@@ -36,7 +37,7 @@
                 <div class="sidebar-brand-icon">
                     <img class="logo mb-1" src="{% static 'img/Logo-ITMorelia.png' %}" alt="" width="150px">
                 </div>
-                <div class="sidebar-brand-text mx-3">REPOSITORIO TEC</div>
+                <div class="sidebar-brand-text mx-3">{%trans 'REPOSITORIO TEC'%}</div>
             </a>
 
 
@@ -46,7 +47,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Areas
+                {%trans 'Areas'%}
             </div>
 
             <!-- Nav Item - Areas -->
@@ -88,13 +89,13 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Administrativos
+                {%trans 'Administrativos'%}
             </div>
             
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'dashboard' %}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Dashboard</span></a>
+                    <span>{%trans 'Dashboard'%}</span></a>
             </li>
             {% endif %}
 
@@ -121,20 +122,33 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
-                    <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" id="buscador_Obj_Gen" class="form-control bg-light border-0 small" placeholder="Buscar Objeto de Estudio..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
+                    <div class="d-flex flex-wrap">
+                        <!-- Topbar Search -->
+                        <form
+                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group">
+                                <input type="text" id="buscador_Obj_Gen" class="form-control bg-light border-0 small" placeholder="{%trans 'Buscar Objeto de Estudio'%}..."
+                                    aria-label="Search" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+    
+                        <!-- Traducciones -->
+                        <form method="post" action="{% url 'change_language' %}">
+                            {% csrf_token %}
+                            <button type="submit" value="en" name="language" class="bg-transparent border-0"> <img src="../static/img/estados-unidos.png" alt="en" height="25" width="25"> </button>
+                        </form>
+    
+                        <form method="post" action="{% url 'change_language' %}">
+                            {% csrf_token %}
+                            <button type="submit" value="es" name="language" class="bg-transparent border-0"> <img src="../static/img/mexico.png" alt="es" height="25" width="25"> </button>
+                        </form>
+
+                    </div>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -151,7 +165,7 @@
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Buscar Objeto de Estudio..." aria-label="Search"
+                                            placeholder="{%trans 'Buscar Objeto de Estudio'%}..." aria-label="Search"
                                             aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
@@ -176,7 +190,7 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Salir
+                                    {%trans 'Salir'%}
                                 </a>
                             </div>
                         </li>
@@ -191,7 +205,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Objetos de Aprendizaje</h1>
+                        <h1 class="h3 mb-0 text-gray-800">{%trans 'Objetos de Aprendizaje'%}</h1>
                     </div>
 
                     <!-- Content Row -->
@@ -252,7 +266,7 @@
                                     </div>
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2 text-center">
-                                            <button class="btn btn-secondary text-uppercase" type="submit" name="detalles" value="{{o.idobjeto}}">Ver más detalles</button>
+                                            <button class="btn btn-secondary text-uppercase" type="submit" name="detalles" value="{{o.idobjeto}}">{%trans 'Ver más detalles'%}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -293,15 +307,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-danger" id="logoutModal">Cerrar sesión</h5>
+                    <h5 class="modal-title text-danger" id="logoutModal">{%trans 'Cerrar sesión'%}</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body text-gray-800">¿Está seguro de cerrar la sesión?</div>
+                <div class="modal-body text-gray-800">{%trans '¿Está seguro de cerrar la sesión?'%}</div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="{% url 'logout' %}">Cerrar sesión</a>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">{%trans 'Cancelar'%}</button>
+                    <a class="btn btn-primary" href="{% url 'logout' %}">{%trans 'Cerrar sesión'%}</a>
                 </div>
             </div>
         </div>

@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -42,22 +43,37 @@
                             <div class="col-lg-6 d-none d-lg-block bg-login-image2"></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Bienvenid@ a la plataforma de Objetos de Aprendizaje</h1>
+
+                                    <!-- Traducciones -->
+                                    <div class="d-flex flex-wrap flex-row-reverse">
+                                        <form method="post" action="{% url 'change_language' %}">
+                                            {% csrf_token %}
+                                            <button type="submit" value="en" name="language" class="bg-transparent border-0"> <img src="../static/img/estados-unidos.png" alt="en" height="25" width="25"> </button>
+                                        </form>
+    
+                                        <form method="post" action="{% url 'change_language' %}">
+                                            {% csrf_token %}
+                                            <button type="submit" value="es" name="language" class="bg-transparent border-0"> <img src="../static/img/mexico.png" alt="es" height="25" width="25"> </button>
+                                        </form>
                                     </div>
+
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">{% trans "Bienvenid@ a la plataforma de Objetos de Aprendizaje"%}</h1>
+                                    </div>
+                                      
                                     <form class="user" method="post">
                                         {% csrf_token %}
                                         <div class="form-group">
-                                            <input class="form-control form-control-user" type="text" name="username" id="Login_User" placeholder="Usuario">                                                    
+                                            <input class="form-control form-control-user" type="text" name="username" id="Login_User" placeholder="{%trans 'Usuario'%}">                                                    
                                         </div>
                                         <div class="form-group">
-                                            <input class="form-control form-control-user" type="password" name="password" id="Login_Pass" placeholder="Contraseña">
+                                            <input class="form-control form-control-user" type="password" name="password" id="Login_Pass" placeholder="{%trans 'Contraseña'%}">
                                         </div>
-                                        <button class="btn btn-primary btn-user btn-block" type="submit"> Iniciar sesión </button>
+                                        <button class="btn btn-primary btn-user btn-block" type="submit"> {%trans 'Iniciar sesión'%} </button>
                                     </form>
                                     <hr>
                                     <a href="{% url 'registro' %}" class="btn btn-primary btn-user btn-block rounded-pill">
-                                        Registrarse
+                                        {%trans 'Registrarse'%}
                                     </a>
                                 </div>
                             </div>
