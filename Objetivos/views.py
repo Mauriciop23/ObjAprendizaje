@@ -7,6 +7,8 @@ from Objetivos.forms import ObjetoForm, AreaForm, UsuarioForm, AreaListForm, Dep
 import datetime
 from django.contrib import messages
 from itertools import chain
+from django.shortcuts import redirect
+from django.utils.translation import activate
 
 @login_required
 def home(request):
@@ -441,3 +443,11 @@ def objeto(request):
             obj.save()
         return render(request, 'objeto.html', context)
 
+def change_language(request):
+    if request.method == 'POST':
+        language = request.POST.get('language')
+        if language in ['en', 'es']:
+            # print(language)
+            # activate(language)
+            request.session['language'] = language
+    return redirect(request.META.get('HTTP_REFERER'))

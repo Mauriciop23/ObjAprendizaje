@@ -1,4 +1,5 @@
 {% extends "dashboardBase.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block links %}
@@ -11,7 +12,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12 col-md-8 d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h3 mb-0 text-gray-800">Información General</h1>
+                                <h1 class="h3 mb-0 text-gray-800">{%trans 'Información General'%}</h1>
                             </div>                            
                         </div>
                     </div>
@@ -26,7 +27,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Cantidad de Descargas</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">{%trans 'Cantidad de Descargas'%}</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -61,7 +62,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Calificación</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">{%trans 'Calificación'%}</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -84,13 +85,13 @@
                                     </div>
                                     <div class="mt-4 text-center small" style="color: var(--dark-blue);">
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Buena
+                                            <i class="fas fa-circle text-primary"></i> {%trans 'Buena'%}
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Mala
+                                            <i class="fas fa-circle text-success"></i> {%trans 'Mala'%}
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Neutral
+                                            <i class="fas fa-circle text-info"></i> {%trans 'Neutral'%}
                                         </span>
                                     </div>
                                 </div>

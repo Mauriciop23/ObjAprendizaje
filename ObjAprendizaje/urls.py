@@ -6,6 +6,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.conf import settings
 from django.views.static import serve
 from django.conf.urls.static import static
+from Objetivos.views import change_language
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -20,6 +21,7 @@ urlpatterns = [
     path('objeto/', Objetivos.views.objeto, name="objeto"),
     path('area/', Objetivos.views.areas, name="area"),
     path("accounts/", include("django.contrib.auth.urls")),
+    path('change_language/', change_language, name='change_language'),
 ]
 
 urlpatterns += [

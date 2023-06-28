@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -9,7 +10,7 @@
     <meta name="author" content="">
 
     <link rel="icon" type="image/x-icon" href="{% static 'img/Logo-ITMorelia-FAVICON.png' %}">
-   <title>Registro | Objetivos de Aprendizaje</title>
+   <title>{%trans 'Registro | Objetivos de Aprendizaje'%}</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
@@ -42,30 +43,30 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Crea una cuenta</h1>
+                                <h1 class="h4 text-gray-900 mb-4">{%trans 'Crea una cuenta'%}</h1>
                             </div>
                             <form class="user" method="post">
                                 {% csrf_token %}
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" name="registro_Username"
-                                            placeholder="Nombre de Usuario">
+                                            placeholder="{%trans 'Nombre de Usuario'%}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" name="registro_Nombre"
-                                            placeholder="Nombre">
+                                            placeholder="{%trans 'Nombre'%}">
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user" name="registro_Apellido"
-                                            placeholder="Apellidos">
+                                            placeholder="{%trans 'Apellidos'%}">
                                     </div>
                                 </div>
                                 <div class="form-group row mb-1">
                                     <div class="col-sm-6 mb-3 mb-sm-0l">
                                         <select class="form-control rounded-pill" name="registro_Estado" style="height: 50px;">
-                                            <option selected value="0">Estado de la republica...</option>
+                                            <option selected value="0">{%trans 'Estado de la republica'%}...</option>
                                             <option value="Aguascalientes"> Aguascalientes </option>
                                             <option value="Baja California"> Baja California </option>
                                             <option value="Baja California"> Sur Baja California Sur </option>
@@ -102,17 +103,17 @@
                                       </div>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user" name="registro_Institucion"
-                                            placeholder="Nombre de la institución">
+                                            placeholder="{%trans 'Nombre de la institución'%}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" name="registro_Carrera"
-                                            placeholder="Carrera">
+                                            placeholder="{%trans 'Carrera'%}">
                                     </div>
                                     <div class="col-sm-6">
                                         <select class="form-control rounded-pill" name="registro_Semestre" style="height: 50px;">
-                                            <option selected value="0">Semestre</option>
+                                            <option selected value="0">{%trans 'Semestre'%}</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -132,19 +133,19 @@
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="email" class="form-control form-control-user" name="registro_Correo"
-                                        placeholder="Correo">
+                                        placeholder="{%trans 'Correo'%}">
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="number" class="form-control form-control-user" name="registro_Telefono"
-                                        placeholder="Telefono" onKeyPress="if(this.value.length==10) return false;" min="10">
+                                        placeholder="{%trans 'Telefono'%}" onKeyPress="if(this.value.length==10) return false;" min="10">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <input type="password" class="form-control form-control-user" name="registro_Contraseña"
-                                    placeholder="Contraseña">
+                                    placeholder="{%trans 'Contraseña'%}">
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block" name="addalumno">Registrar cuenta</button>
+                                <button type="submit" class="btn btn-primary btn-user btn-block" name="addalumno">{%trans 'Registrar cuenta'%}</button>
                             </form>
                         </div>
                     </div>

@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -37,7 +38,7 @@
                 <div class="sidebar-brand-icon">
                     <img class="logo mb-1" src="{% static 'img/Logo-ITMorelia.png' %}" alt="" width="150px">
                 </div>
-                <div class="sidebar-brand-text mx-3">REPOSITORIO TEC</div>
+                <div class="sidebar-brand-text mx-3">{%trans 'REPOSITORIO TEC'%}</div>
             </a>
 
 
@@ -69,13 +70,13 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Administrativos
+                {%trans 'Administrativos'%}
             </div>
             
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'dashboard' %}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Dashboard</span></a>
+                    <span>{%trans 'Dashboard'%}</span></a>
             </li>
             {% endif %}
 
@@ -102,6 +103,17 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
 
+                    <!-- Traducciones -->
+                    <form method="post" action="{% url 'change_language' %}">
+                        {% csrf_token %}
+                        <button type="submit" value="en" name="language" class="bg-transparent border-0"> <img src="../static/img/estados-unidos.png" alt="en" height="25" width="25"> </button>
+                    </form>
+
+                    <form method="post" action="{% url 'change_language' %}">
+                        {% csrf_token %}
+                        <button type="submit" value="es" name="language" class="bg-transparent border-0"> <img src="../static/img/mexico.png" alt="es" height="25" width="25"> </button>
+                    </form>
+
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Nav Item - User Information -->
@@ -116,16 +128,16 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Perfil
+                                    {%trans 'Perfil'%}
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Ajustes
+                                    {%trans 'Ajustes'%}
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Salir
+                                    {%trans 'Salir'%}
                                 </a>
                             </div>
                         </li>
