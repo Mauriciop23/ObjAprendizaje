@@ -9,6 +9,7 @@ staticfiles/
 *.pyc
 __pycache__/
 local_settings.py
+settings.py
 db.sqlite3
 db.sqlite3-journal
 media
@@ -69,9 +70,6 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
-
-# Translations
-*.mo
 
 # Django stuff:
 
